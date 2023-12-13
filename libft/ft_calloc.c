@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dramos-n <dramos-n@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/03 12:35:40 by dramos-n          #+#    #+#             */
-/*   Updated: 2023/12/03 12:35:41 by dramos-n         ###   ########.fr       */
+/*   Created: 2023/11/30 12:18:18 by dramos-n          #+#    #+#             */
+/*   Updated: 2023/11/30 12:18:19 by dramos-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+void	*ft_calloc(size_t count, size_t size)
 {
-	char	*ptr;
-	int		i;
+	char			*ptr;
+	unsigned int	n;
+	unsigned int	i;
 
 	i = 0;
-	ptr = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (ptr)
+	n = count * size;
+	ptr = (char *)malloc(sizeof(char) * n);
+	if (ptr != NULL)
 	{
-		ft_strlcpy(ptr, s1, ft_strlen(s1) + 1);
-		ft_strlcat(ptr, s2, ft_strlen(s2) + ft_strlen(s1) + 1);
+		while (i < n)
+		{
+			*ptr++ = 0;
+			i++;
+		}
 	}
+	ptr -= i;
 	return (ptr);
 }

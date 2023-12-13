@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dramos-n <dramos-n@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/03 12:35:40 by dramos-n          #+#    #+#             */
-/*   Updated: 2023/12/03 12:35:41 by dramos-n         ###   ########.fr       */
+/*   Created: 2023/11/29 11:25:15 by dramos-n          #+#    #+#             */
+/*   Updated: 2023/11/29 11:25:16 by dramos-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	char	*ptr;
-	int		i;
+	unsigned char	*ptr;
+	unsigned char	ch;
 
-	i = 0;
-	ptr = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (ptr)
+	ptr = (unsigned char *)s;
+	ch = (unsigned char)c;
+	while (n > 0)
 	{
-		ft_strlcpy(ptr, s1, ft_strlen(s1) + 1);
-		ft_strlcat(ptr, s2, ft_strlen(s2) + ft_strlen(s1) + 1);
+		if (*ptr == ch)
+		{
+			return (ptr);
+		}
+		ptr++;
+		n--;
 	}
-	return (ptr);
+	if (ch == '\0' && n > 0)
+		return (ptr);
+	return (0);
 }

@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dramos-n <dramos-n@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/03 12:35:40 by dramos-n          #+#    #+#             */
-/*   Updated: 2023/12/03 12:35:41 by dramos-n         ###   ########.fr       */
+/*   Created: 2023/12/11 17:35:34 by dramos-n          #+#    #+#             */
+/*   Updated: 2023/12/11 17:35:36 by dramos-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+void	ft_lstclear(t_list **lst, void (*del)(void*))
 {
-	char	*ptr;
-	int		i;
+	t_list	*node;
+	t_list	*head;
 
-	i = 0;
-	ptr = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (ptr)
+	if (*lst)
 	{
-		ft_strlcpy(ptr, s1, ft_strlen(s1) + 1);
-		ft_strlcat(ptr, s2, ft_strlen(s2) + ft_strlen(s1) + 1);
+		head = *lst;
+		while (head)
+		{
+			(*del)(head->content);
+			node = head->next;
+			free(head);
+			head = node;
+		}
+		*lst = NULL;
 	}
-	return (ptr);
 }

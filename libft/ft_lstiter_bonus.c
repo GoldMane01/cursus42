@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_lstiter_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dramos-n <dramos-n@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/03 12:35:40 by dramos-n          #+#    #+#             */
-/*   Updated: 2023/12/03 12:35:41 by dramos-n         ###   ########.fr       */
+/*   Created: 2023/12/12 15:18:58 by dramos-n          #+#    #+#             */
+/*   Updated: 2023/12/12 15:18:59 by dramos-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	char	*ptr;
-	int		i;
+	t_list	*node;
 
-	i = 0;
-	ptr = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (ptr)
+	node = lst;
+	while (node)
 	{
-		ft_strlcpy(ptr, s1, ft_strlen(s1) + 1);
-		ft_strlcat(ptr, s2, ft_strlen(s2) + ft_strlen(s1) + 1);
+		(*f)(node->content);
+		node = node->next;
 	}
-	return (ptr);
 }

@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dramos-n <dramos-n@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/03 12:35:40 by dramos-n          #+#    #+#             */
-/*   Updated: 2023/12/03 12:35:41 by dramos-n         ###   ########.fr       */
+/*   Created: 2023/11/29 11:17:23 by dramos-n          #+#    #+#             */
+/*   Updated: 2023/11/29 11:17:24 by dramos-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	char	*ptr;
-	int		i;
+	unsigned int	counter;
+	unsigned char	*p1;
+	unsigned char	*p2;
 
-	i = 0;
-	ptr = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (ptr)
+	p1 = (unsigned char *)s1;
+	p2 = (unsigned char *)s2;
+	counter = 0;
+	if (n == 0)
+		return (0);
+	while (counter < (n - 1) && p1[counter] != '\0' && p2[counter] != '\0')
 	{
-		ft_strlcpy(ptr, s1, ft_strlen(s1) + 1);
-		ft_strlcat(ptr, s2, ft_strlen(s2) + ft_strlen(s1) + 1);
+		if (p1[counter] != p2[counter])
+			return (p1[counter] - p2[counter]);
+		counter++;
 	}
-	return (ptr);
+	return (p1[counter] - p2[counter]);
 }

@@ -1,28 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dramos-n <dramos-n@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/03 12:35:40 by dramos-n          #+#    #+#             */
-/*   Updated: 2023/12/03 12:35:41 by dramos-n         ###   ########.fr       */
+/*   Created: 2023/12/09 16:39:19 by dramos-n          #+#    #+#             */
+/*   Updated: 2023/12/09 16:39:20 by dramos-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
-char	*ft_strjoin(char const *s1, char const *s2)
+void	ft_putnbr_fd(int n, int fd)
 {
-	char	*ptr;
-	int		i;
+	char	c;
+	int		flag;
 
-	i = 0;
-	ptr = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (ptr)
+	c = '0';
+	flag = 0;
+	if (n == -2147483648)
+		write(fd, "-2147483648", 11);
+	else
 	{
-		ft_strlcpy(ptr, s1, ft_strlen(s1) + 1);
-		ft_strlcat(ptr, s2, ft_strlen(s2) + ft_strlen(s1) + 1);
+		if (n == 0)
+			write (fd, &c, 1);
+		if (n < 0)
+		{
+			write (fd, "-", 1);
+			n = -n;
+		}
+		if (n != 0)
+		{
+			c = (n % 10) + '0';
+			if (n / 10 != 0)
+				ft_putnbr_fd(n / 10, fd);
+			write(fd, &c, 1);
+		}
 	}
-	return (ptr);
 }
