@@ -17,6 +17,6 @@
 # include <stdarg.h>
 
 int		ft_printf(char const *str, ...);
-void	ft_printarg(char *str, char c);
+void	ft_printarg(void *str, char c);
 
 #endif

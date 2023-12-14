@@ -32,7 +32,20 @@ static int	count_args(char const *str)
 	return (count);
 }
 
-
+void	printvar(va_list arg, char c)
+{
+	if (c == 's')
+		ft_putstr_fd(va_arg(arg, char *), 1);
+	if (c == 'c')
+		ft_putchar_fd(va_arg(arg, int), 1);
+	if (c == 'd')
+		ft_putnbr_fd(va_arg(arg, int), 1);
+	if (c == 'p')
+	{
+		char	*p = (va_arg(arg, char *));
+		ft_putstr_fd(&(va_arg(arg, char *)), 1);
+	}
+}
 
 #include <stdio.h>
 
@@ -47,13 +60,11 @@ int	ft_printf(char const *str, ...)
 	va_start(arg, str);
 	while (str[++i])
 	{
-		if (str[i] == '%' && ft_strchr("cspdiuxX", str[i + 1]))
-		{
-			ft_printvar(va_arg(arg, char *), str[i + 1]);
-			i++;
-		}
+		if (str[i] == '%' && str[i + 1] && ft_strchr("cspdiuxX", str[i + 1]))
+			printvar(arg, str[++i]);
 		else
 			write(1, &str[i], 1);
 	}
+	va_end(arg);
 	return (0);
 }

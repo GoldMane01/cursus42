@@ -5,6 +5,7 @@
 int main(void)
 {
 	char *s = "cccc";
-	ft_printf("%d", 12344);
+	char *p = "ennove";
+	ft_printf("numero: %d\nstring: %s\nporcentaje: %%\npuntero: %p\n", 12344, p, s);
 	return (0);
 }
