@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_writes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dramos-n <dramos-n@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/19 14:01:08 by dramos-n          #+#    #+#             */
-/*   Updated: 2023/12/19 14:01:09 by dramos-n         ###   ########.fr       */
+/*   Created: 2023/12/19 15:17:25 by dramos-n          #+#    #+#             */
+/*   Updated: 2023/12/19 15:17:26 by dramos-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1024
-# endif
+#include "ft_printf.h"
 
-# include <unistd.h>
-# include <stdlib.h>
+int	ft_putstr(char *s)
+{
+	int	i;
 
-char		*get_next_line(int fd);
-char		*iterate_line(char *buf, int c);
-int			ft_strlen(const char *s);
-
-#endif
+	i = -1;
+	if (!s)
+		return (-1);
+	while (s[++i])
+		if (write(1, &s[i], 1) == -1)
+			return (-1);
+	return (1);
+}

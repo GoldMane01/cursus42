@@ -29,7 +29,7 @@ SRCS	= libft/ft_isalpha.c libft/ft_isdigit.c libft/ft_isprint.c \
 		libft/ft_lstadd_back_bonus.c libft/ft_lstdelone_bonus.c \
 		libft/ft_lstclear_bonus.c libft/ft_lstiter_bonus.c \
 		libft/ft_lstmap_bonus.c \
-		ft_printf.c
+		ft_printf.c ft_simple.c ft_hex.c ft_pointer.c ft_printutils.c
 
 OBJS	= $(SRCS:.c=.o)
 

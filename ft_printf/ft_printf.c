@@ -12,59 +12,55 @@
 
 #include "ft_printf.h"
 
-static int	count_args(char const *str)
-{
-	int	i;
-	int	count;
-
-	i = -1;
-	count = 0;
-	while (str[++i])
-	{
-		if (str[i] == '%')
-		{
-			if (str[i + 1] == '%')
-				i += 2;
-			else if (ft_strchr("cspdiuxX", str[i + 1]))
-				count++;
-		}
-	}
-	return (count);
-}
-
-void	printvar(va_list arg, char c)
+static int	printvar(va_list arg, char c)
 {
 	if (c == 's')
-		ft_putstr_fd(va_arg(arg, char *), 1);
-	if (c == 'c')
-		ft_putchar_fd(va_arg(arg, int), 1);
-	if (c == 'd')
-		ft_putnbr_fd(va_arg(arg, int), 1);
-	if (c == 'p')
-	{
-		char	*p = (va_arg(arg, char *));
-		ft_putstr_fd(&(va_arg(arg, char *)), 1);
-	}
+		return (print_str(va_arg(arg, char *)));
+	else if (c == 'c')
+		return (print_char(va_arg(arg, int)));
+	else if (c == 'd' || c == 'i')
+		return (print_int(va_arg(arg, int)));
+	else if (c == 'u')
+		return (print_uint(va_arg(arg, unsigned int)));
+	else if (c == 'x' || c == 'X')
+		return (print_hex(va_arg(arg, int), c));
+	else if (c == 'p')
+		return (print_pointer(va_arg(arg, void *)));
+	else
+		return (print_char(c));
 }
 
-#include <stdio.h>
+int	end(va_list arg, int n)
+{
+	va_end(arg);
+	return (n);
+}
 
 int	ft_printf(char const *str, ...)
 {
 	va_list	arg;
-	int		count;
 	int		i;
+	int		len;
+	int		j;
 
+	len = 0;
 	i = -1;
-	count = count_args(str);
 	va_start(arg, str);
 	while (str[++i])
 	{
-		if (str[i] == '%' && str[i + 1] && ft_strchr("cspdiuxX", str[i + 1]))
-			printvar(arg, str[++i]);
+		if (str[i] == '%')
+		{
+			j = printvar(arg, str[++i]);
+			if (j == -1)
+				return (end(arg, -1));
+			len += j - 1;
+		}
 		else
-			write(1, &str[i], 1);
+		{
+			if (write(1, &str[i], 1) == -1)
+				return (end(arg, -1));
+		}
+		len++;
 	}
-	va_end(arg);
-	return (0);
+	return (end(arg, len));
 }
