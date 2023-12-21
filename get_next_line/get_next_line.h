@@ -19,8 +19,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-char		*get_next_line(int fd);
-char		*iterate_line(char *buf, int c);
-int			ft_strlen(const char *s);
+char	*get_next_line(int fd);
+int		reach_nl(char *buf, int eof);
+void	ft_strcat(char *line, char *buf, int c);
 
 #endif

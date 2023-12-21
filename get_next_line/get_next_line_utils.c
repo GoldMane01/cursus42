@@ -14,47 +14,31 @@
 
 #include <stdio.h>
 
-static char	*line_dup(const char *s, int start, int end)
-{
-	char			*ptr;
-	char			*res;
-
-	ptr = (char *)malloc(sizeof(char) * (end - start + 1));
-	if (!ptr)
-		return (NULL);
-	res = ptr;
-	while (start < end)
-	{
-		*ptr = s[start++];
-		ptr++;
-	}
-	*ptr = '\0';
-	return (res);
-}
-
-char	*iterate_line(char *buf, int c)
-{
-	char		*line;
-	int			start;
-
-	start = c;
-	if (!buf[c])
-		return (NULL);
-	if (buf[c] == '\n')
-		c++;
-	while (buf[c] != '\n')
-		c++;
-	line = line_dup(buf, start, c);
-	c++;
-	return (line);
-}
-
-int	ft_strlen(const char *s)
+int	reach_nl(char *buf, int eof)
 {
 	int	i;
 
 	i = 0;
-	while (s[i] != '\0')
+	while (eof-- && buf[i] != '\n')
 		i++;
-	return (i);
+	if (buf[i] == '\n')
+		return (i);
+	return (0);
+}
+
+void	ft_strcat(char *line, char *buf, int c)
+{
+	int		i;
+	char	*ptr;
+
+	i = -1;
+	ptr = line;
+	while (++i <= c)
+	{
+		*line = *buf;
+		line++;
+		buf++;
+	}
+	*line = '\0';
+	printf("%s\n", ptr);
 }

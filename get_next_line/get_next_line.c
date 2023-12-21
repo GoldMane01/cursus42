@@ -16,15 +16,23 @@
 
 char	*get_next_line(int fd)
 {
-	static int	c = 0;
+	static char	*line;
+	int			c;
 	char		buf[BUFFER_SIZE];
-	char		*line;
 	int			eof;
 
-	if (fd == -1)
-		return (NULL);
+	c = 0;
 	eof = read(fd, buf, BUFFER_SIZE);
-	line = iterate_line(buf, c);
-	c += ft_strlen(line);
+	if (eof != 0)
+	{
+		c = reach_nl(buf, eof);
+		if (c > 0)
+		{
+			line = malloc(sizeof(char) * (c + 1));
+			if (!line)
+				return (NULL);
+			ft_strcat(line, buf, c);
+		}
+	}
 	return (line);
 }
