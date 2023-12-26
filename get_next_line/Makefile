@@ -7,7 +7,7 @@ NC		= \033[0m
 
 CC		= gcc
 LIBC	= ar rcs
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -D BUFFER_SIZE=5
 RM		= rm -f
 
 #--Files--#

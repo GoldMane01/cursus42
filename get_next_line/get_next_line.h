@@ -20,7 +20,8 @@
 # include <stdlib.h>
 
 char	*get_next_line(int fd);
-int		reach_nl(char *buf, int eof);
-void	ft_strcat(char *line, char *buf, int c);
+char	*ft_strchr(const char *s, int c);
+int		len(char *s, int c);
+char	*ft_strcat(char *temp, char *buffer);
 
 #endif

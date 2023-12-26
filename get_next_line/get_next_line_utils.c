@@ -14,31 +14,53 @@
 
 #include <stdio.h>
 
-int	reach_nl(char *buf, int eof)
+char	*ft_strchr(const char *s, int c)
+{
+	char	*ptr;
+
+	ptr = 0;
+	while (*s != '\0')
+	{
+		if (*s == (char)c)
+		{
+			ptr = (char *) s;
+			return (ptr);
+		}
+		s++;
+	}
+	if ((char)c == '\0')
+		ptr = (char *) s;
+	return (ptr);
+}
+
+char	*ft_strcat(char *temp, char *buffer)
+{
+	char	*join;
+	int		i;
+	int		j;
+
+	if (buffer)
+		join = malloc(sizeof(char) * (len(temp, '\0') + len(buffer, '\0') + 1));
+	else
+		return (NULL);
+	i = -1;
+	j = -1;
+	while (temp[++i])
+		join[i] = temp[i];
+	while (buffer[++j])
+		join[i] = buffer[j];
+	return (join);
+}
+
+int	len(char *s, int c)
 {
 	int	i;
 
 	i = 0;
-	while (eof-- && buf[i] != '\n')
-		i++;
-	if (buf[i] == '\n')
-		return (i);
-	return (0);
-}
-
-void	ft_strcat(char *line, char *buf, int c)
-{
-	int		i;
-	char	*ptr;
-
-	i = -1;
-	ptr = line;
-	while (++i <= c)
+	if (s)
 	{
-		*line = *buf;
-		line++;
-		buf++;
+		while (s[i] && s[i] != c)
+			i++;
 	}
-	*line = '\0';
-	printf("%s\n", ptr);
+	return (i);
 }

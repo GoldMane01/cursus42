@@ -1,0 +1,7 @@
+a.out
+test.c
+text.txt
+.DS_Store
+*.swp
+*.o
+*.a
