@@ -19,6 +19,8 @@ char	*ft_strchr(const char *s, int c)
 	char	*ptr;
 
 	ptr = 0;
+	if (!s)
+		return (NULL);
 	while (*s != '\0')
 	{
 		if (*s == (char)c)
@@ -39,16 +41,24 @@ char	*ft_strcat(char *temp, char *buffer)
 	int		i;
 	int		j;
 
+	if (!temp)
+	{
+		temp = malloc(sizeof(char) * (1));
+		temp[0] = '\0';
+	}
 	if (buffer)
 		join = malloc(sizeof(char) * (len(temp, '\0') + len(buffer, '\0') + 1));
 	else
+		return (NULL);
+	if (!join)
 		return (NULL);
 	i = -1;
 	j = -1;
 	while (temp[++i])
 		join[i] = temp[i];
 	while (buffer[++j])
-		join[i] = buffer[j];
+		join[i++] = buffer[j];
+	join[i] = '\0';
 	return (join);
 }
 

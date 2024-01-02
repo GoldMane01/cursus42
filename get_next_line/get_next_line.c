@@ -14,6 +14,31 @@
 
 #include <stdio.h>
 
+char	*save_rest(char *line, char *temp)
+{
+	char	*rest;
+	int		size;
+	int		i;
+	int		j;
+
+	if (!line || !temp)
+		return (NULL);
+	size = (len(temp, '\0') - len(line, '\0')) + 1;
+	rest = malloc(sizeof(char) * (size));
+	if (!rest)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (line[i])
+		i++;
+	if (temp[i] == '\n')
+		i++;
+	while (temp[i])
+		rest[j++] = temp[i++];
+	return (rest);
+}
+
+
 char	*get_line(char *s)
 {
 	char	*res;
@@ -29,9 +54,9 @@ char	*get_line(char *s)
 		res[i] = s[i];
 		i++;
 	}
-	if (ft_strchr(s, '\n'))
+	/*if (ft_strchr(s, '\n'))
 		res[i] = '\n';
-	else
+	else*/
 		res[i] = '\0';
 	return (res);
 }
@@ -56,19 +81,20 @@ char	*rfile(int fd, char *buffer)
 	return (temp);
 }
 
-//ME FALTA VER COMO GUARDAR LO QUE SOBRE DEL READ
-//EN LA VARIABLE ESTÁTICA
+//ARREGLAR LOS DISTINTOS TAMAÑOS DEL BUFFER
 char	*get_next_line(int fd)
 {
 	char		*line;
-	char		*temp;
-	static char	buf[BUFFER_SIZE + 1];
+	static char	*temp;
+	char		buf[BUFFER_SIZE + 1];
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	temp = rfile(fd, buf);
+	if (!ft_strchr(temp, '\n') && !ft_strchr(temp, '\0'))
+		temp = rfile(fd, buf);
 	if (!temp)
 		return (NULL);
 	line = get_line(temp);
+	temp = save_rest(line, temp);
 	return (line);
 }
