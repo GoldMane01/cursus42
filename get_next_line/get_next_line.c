@@ -38,7 +38,6 @@ char	*save_rest(char *line, char *temp)
 	return (rest);
 }
 
-
 char	*get_line(char *s)
 {
 	char	*res;
@@ -54,20 +53,15 @@ char	*get_line(char *s)
 		res[i] = s[i];
 		i++;
 	}
-	/*if (ft_strchr(s, '\n'))
-		res[i] = '\n';
-	else*/
-		res[i] = '\0';
+	res[i] = '\0';
 	return (res);
 }
 
-char	*rfile(int fd, char *buffer)
+char	*rfile(int fd, char *buffer, char *temp)
 {
 	int		bytes;
-	char	*temp;
 
 	bytes = 1;
-	temp = NULL;
 	while (bytes > 0)
 	{
 		bytes = read(fd, buffer, BUFFER_SIZE);
@@ -81,7 +75,6 @@ char	*rfile(int fd, char *buffer)
 	return (temp);
 }
 
-//ARREGLAR LOS DISTINTOS TAMAÑOS DEL BUFFER
 char	*get_next_line(int fd)
 {
 	char		*line;
@@ -90,8 +83,7 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!ft_strchr(temp, '\n') && !ft_strchr(temp, '\0'))
-		temp = rfile(fd, buf);
+	temp = rfile(fd, buf, temp);
 	if (!temp)
 		return (NULL);
 	line = get_line(temp);

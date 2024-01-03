@@ -5,7 +5,7 @@
 int main(void)
 {
 	int fd = open("text.txt", O_RDONLY);
-	int i = 6;
+	int i = 17;
 	while (i--)
 	{
 		//get_next_line(fd);
