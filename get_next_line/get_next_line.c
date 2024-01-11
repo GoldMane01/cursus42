@@ -12,81 +12,87 @@
 
 #include "get_next_line.h"
 
-#include <stdio.h>
-
-char	*save_rest(char *line, char *temp)
+char	*get_line(char *line, char *rest)
 {
-	char	*rest;
-	int		size;
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while(rest[i] && rest[i] != '\n')
+		i++;
+	line = malloc(sizeof(char) * (i + 1));
+	if (!line)
+		return (NULL);
+	while(rest[j] && rest[j] != '\n')
+	{
+		line[j] = rest[j];
+		j++;
+	}
+	line[j] = '\0';
+	return (line);
+}
+
+char	*save_text(char *rest, char *buffer)
+{
+	char	*join;
 	int		i;
 	int		j;
 
-	if (!line || !temp)
-		return (NULL);
-	size = (len(temp, '\0') - len(line, '\0')) + 1;
-	rest = malloc(sizeof(char) * (size));
-	if (!rest)
+	join = malloc(sizeof(char) * (slen(rest) + slen(buffer) + 1));
+	if (!join)
 		return (NULL);
 	i = 0;
 	j = 0;
-	while (line[i])
-		i++;
-	if (temp[i] == '\n')
-		i++;
-	while (temp[i])
-		rest[j++] = temp[i++];
-	return (rest);
-}
-
-char	*get_line(char *s)
-{
-	char	*res;
-	int		i;
-
-	i = 0;
-	if (ft_strchr(s, '\n'))
-		res = malloc(sizeof(char) * (len(s, '\n') + 1));
-	else
-		res = malloc(sizeof(char) * (len(s, '\0') + 1));
-	while (s[i] && s[i] != '\n')
+	if (rest)
 	{
-		res[i] = s[i];
-		i++;
+		while (rest[i++])
+			join[i] = rest[i];
 	}
-	res[i] = '\0';
-	return (res);
+	if (buffer)
+	{
+		while (buffer[j++])
+			join[i++] = buffer[j];
+	}
+	join[i] = '\0';
+	free(rest);
+	return (join);
 }
 
-char	*rfile(int fd, char *buffer, char *temp)
+char	*read_file(int fd, char *rest)
 {
 	int		bytes;
+	int		nl;
+	char	buffer[BUFFER_SIZE + 1];
 
 	bytes = 1;
-	while (bytes > 0)
+	nl = 0;
+	if (slen(rest) == 0)
 	{
-		bytes = read(fd, buffer, BUFFER_SIZE);
-		if (bytes < 0)
-			return (NULL);
-		buffer[bytes] = '\0';
-		temp = ft_strcat(temp, buffer);
-		if (ft_strchr(buffer, '\n'))
-			break ;
+		while (!nl && bytes != 0)
+		{
+			bytes = read(fd, buffer, BUFFER_SIZE);
+			if (bytes < 0)
+				return (NULL);
+			buffer[bytes] = '\0';
+			rest = save_text(rest, buffer);
+			if (!rest)
+				return (NULL);
+			nl = find_nl(rest);
+		}
 	}
-	return (temp);
+	return (rest);
 }
 
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*temp;
-	char		buf[BUFFER_SIZE + 1];
+	char static	*rest;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	temp = rfile(fd, buf, temp);
-	if (!temp)
+	if (!read_file(fd, rest))
 		return (NULL);
-	line = get_line(temp);
-	temp = save_rest(line, temp);
+	line = get_line(line, rest);
 	return (line);
 }

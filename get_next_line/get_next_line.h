@@ -19,9 +19,10 @@
 # include <unistd.h>
 # include <stdlib.h>
 
+# include <stdio.h>
+
 char	*get_next_line(int fd);
-char	*ft_strchr(const char *s, int c);
-int		len(char *s, int c);
-char	*ft_strcat(char *temp, char *buffer);
+int		slen(char *s);
+int		find_nl(char *s);
 
 #endif

@@ -12,65 +12,26 @@
 
 #include "get_next_line.h"
 
-#include <stdio.h>
-
-char	*ft_strchr(const char *s, int c)
-{
-	char	*ptr;
-
-	ptr = 0;
-	if (!s)
-		return (NULL);
-	while (*s != '\0')
-	{
-		if (*s == (char)c)
-		{
-			ptr = (char *) s;
-			return (ptr);
-		}
-		s++;
-	}
-	if ((char)c == '\0')
-		ptr = (char *) s;
-	return (ptr);
-}
-
-char	*ft_strcat(char *temp, char *buffer)
-{
-	char	*join;
-	int		i;
-	int		j;
-
-	if (!temp)
-	{
-		temp = malloc(sizeof(char) * (1));
-		temp[0] = '\0';
-	}
-	if (buffer)
-		join = malloc(sizeof(char) * (len(temp, '\0') + len(buffer, '\0') + 1));
-	else
-		return (NULL);
-	if (!join)
-		return (NULL);
-	i = -1;
-	j = -1;
-	while (temp[++i])
-		join[i] = temp[i];
-	while (buffer[++j])
-		join[i++] = buffer[j];
-	join[i] = '\0';
-	return (join);
-}
-
-int	len(char *s, int c)
+int	slen(char *s)
 {
 	int	i;
 
 	i = 0;
-	if (s)
-	{
-		while (s[i] && s[i] != c)
-			i++;
-	}
+	if (!s)
+		return (0);
+	while (s[i])
+		i++;
 	return (i);
+}
+
+int	find_nl(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] && s[i] != '\n')
+		i++;
+	if (s[i] == '\n')
+		return (1);
+	return (0);
 }
