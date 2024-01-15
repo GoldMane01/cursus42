@@ -10,91 +10,46 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-
-#include <stdio.h>
-
-char	*save_rest(char *line, char *temp)
+char	*get_line(t_list *list)
 {
-	char	*rest;
-	int		size;
-	int		i;
-	int		j;
+	int		len;
+	char	*str;
 
-	if (!line || !temp)
+	if (!list)
 		return (NULL);
-	size = (len(temp, '\0') - len(line, '\0')) + 1;
-	rest = malloc(sizeof(char) * (size));
-	if (!rest)
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (line[i])
-		i++;
-	if (temp[i] == '\n')
-		i++;
-	while (temp[i])
-		rest[j++] = temp[i++];
-	return (rest);
+	
 }
 
-
-char	*get_line(char *s)
+void	newlst(t_list **list, int fd)
 {
-	char	*res;
-	int		i;
-
-	i = 0;
-	if (ft_strchr(s, '\n'))
-		res = malloc(sizeof(char) * (len(s, '\n') + 1));
-	else
-		res = malloc(sizeof(char) * (len(s, '\0') + 1));
-	while (s[i] && s[i] != '\n')
-	{
-		res[i] = s[i];
-		i++;
-	}
-	/*if (ft_strchr(s, '\n'))
-		res[i] = '\n';
-	else*/
-		res[i] = '\0';
-	return (res);
-}
-
-char	*rfile(int fd, char *buffer)
-{
+	char	*buffer;
 	int		bytes;
-	char	*temp;
 
-	bytes = 1;
-	temp = NULL;
-	while (bytes > 0)
+	while (!find_nl(*list))
 	{
+		buffer = malloc((sizeof(char)) * (BUFFER_SIZE + 1));
+		if (!buffer)
+			return ;
 		bytes = read(fd, buffer, BUFFER_SIZE);
-		if (bytes < 0)
-			return (NULL);
-		buffer[bytes] = '\0';
-		temp = ft_strcat(temp, buffer);
-		if (ft_strchr(buffer, '\n'))
-			break ;
+		if (bytes <= 0)
+		{
+			free(buffer);
+			return ;
+		}
+		buf[bytes] = '\0';
+		ft_lstadd(list, buffer);
 	}
-	return (temp);
 }
 
-//ARREGLAR LOS DISTINTOS TAMAÑOS DEL BUFFER
 char	*get_next_line(int fd)
 {
-	char		*line;
-	static char	*temp;
-	char		buf[BUFFER_SIZE + 1];
+	static t_list	*list = NULL;
+	char			*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &next_line, 0) < 0)
 		return (NULL);
-	if (!ft_strchr(temp, '\n') && !ft_strchr(temp, '\0'))
-		temp = rfile(fd, buf);
-	if (!temp)
+	newlst(&list, fd);
+	if (!list)
 		return (NULL);
-	line = get_line(temp);
-	temp = save_rest(line, temp);
-	return (line);
+	line = get_line(list);
 }

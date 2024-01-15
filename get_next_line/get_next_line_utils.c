@@ -10,67 +10,59 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-
-#include <stdio.h>
-
-char	*ft_strchr(const char *s, int c)
-{
-	char	*ptr;
-
-	ptr = 0;
-	if (!s)
-		return (NULL);
-	while (*s != '\0')
-	{
-		if (*s == (char)c)
-		{
-			ptr = (char *) s;
-			return (ptr);
-		}
-		s++;
-	}
-	if ((char)c == '\0')
-		ptr = (char *) s;
-	return (ptr);
-}
-
-char	*ft_strcat(char *temp, char *buffer)
-{
-	char	*join;
-	int		i;
-	int		j;
-
-	if (!temp)
-	{
-		temp = malloc(sizeof(char) * (1));
-		temp[0] = '\0';
-	}
-	if (buffer)
-		join = malloc(sizeof(char) * (len(temp, '\0') + len(buffer, '\0') + 1));
-	else
-		return (NULL);
-	if (!join)
-		return (NULL);
-	i = -1;
-	j = -1;
-	while (temp[++i])
-		join[i] = temp[i];
-	while (buffer[++j])
-		join[i++] = buffer[j];
-	join[i] = '\0';
-	return (join);
-}
-
-int	len(char *s, int c)
+int	find_nl(t_list *node)
 {
 	int	i;
 
 	i = 0;
-	if (s)
+	while (node->str[i])
 	{
-		while (s[i] && s[i] != c)
-			i++;
+		if (node->str[i] == '\n')
+			return (1);
+		i++;
 	}
-	return (i);
+	return (0);
+}
+
+t_list	*ft_lstlast(t_list *lst)
+{
+	t_list	*node;
+
+	node = lst;
+	while (node)
+	{
+		if (node->next)
+			node = node->next;
+		else
+			break ;
+	}
+	return (node);
+}
+
+t_list	*ft_lstnew(void *content)
+{
+	t_list	*node;
+
+	node = malloc(sizeof(t_list));
+	if (node)
+	{
+		node->str = content;
+		node->next = NULL;
+	}
+	return (node);
+}
+
+void	ft_lstadd(t_list **list, char *buffer)
+{
+	t_list	*last;
+	t_list	*new;
+
+	new = ft_lstnew(buffer);
+	if (!new)
+		return (NULL);
+	last = ft_lstlast(*list);
+	if (!last)
+		*list = new;
+	else
+		last->next = new;
 }

@@ -13,15 +13,20 @@
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 2
+#  define BUFFER_SIZE 1024
 # endif
 
 # include <unistd.h>
 # include <stdlib.h>
 
+typedef struct s_list
+{
+	char			*str;
+	struct s_list	*next;
+}					t_list;
+
 char	*get_next_line(int fd);
-char	*ft_strchr(const char *s, int c);
-int		len(char *s, int c);
-char	*ft_strcat(char *temp, char *buffer);
+void	ft_lstadd(t_list **list, char *buffer);
+int		find_nl(t_list *node);
 
 #endif
