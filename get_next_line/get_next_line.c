@@ -10,6 +10,59 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "get_next_line.h"
+
+void	clean_list(t_list **list)
+{
+	t_list	*last;
+	t_list	*node;
+	char	*buffer;
+	int		i;
+	int		j;
+
+	buffer = malloc(BUFFER_SIZE + 1);
+	node = malloc(sizeof(t_list));
+	if (!buffer || !node)
+		return ;
+	last = ft_lstlast(*list);
+	i = 0;
+	while (last->str[i] && last->str[i] != '\n')
+		i++;
+	j = 0;
+	while (last->str[i] != '\0' && last->str[++i])
+		buffer[j++] = last->str[i];
+	buffer[j] = '\0';
+	node->str = buffer;
+	node->next = NULL;
+	free_all(list, node, buffer);
+}
+
+void	copy_line(t_list *list, char *str)
+{
+	int	i;
+	int	j;
+
+	if (!list)
+		return ;
+	j = 0;
+	while (list)
+	{
+		i = 0;
+		while (list->str[i])
+		{
+			if (list->str[i] == '\n')
+			{
+				str[j] = '\n';
+				str[j + 1] = '\0';
+				return ;
+			}
+			str[j++] = list->str[i++];
+		}
+		list = list->next;
+	}
+	str[j] = '\0';
+}
+
 char	*get_line(t_list *list)
 {
 	int		len;
@@ -17,7 +70,12 @@ char	*get_line(t_list *list)
 
 	if (!list)
 		return (NULL);
-	
+	len = len_nl(list);
+	str = malloc(sizeof(char) * (len + 1));
+	if (!str)
+		return (NULL);
+	copy_line(list, str);
+	return (str);
 }
 
 void	newlst(t_list **list, int fd)
@@ -36,7 +94,7 @@ void	newlst(t_list **list, int fd)
 			free(buffer);
 			return ;
 		}
-		buf[bytes] = '\0';
+		buffer[bytes] = '\0';
 		ft_lstadd(list, buffer);
 	}
 }
@@ -46,10 +104,12 @@ char	*get_next_line(int fd)
 	static t_list	*list = NULL;
 	char			*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &next_line, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &line, 0) < 0)
 		return (NULL);
 	newlst(&list, fd);
 	if (!list)
 		return (NULL);
 	line = get_line(list);
+	clean_list(&list);
+	return (line);
 }

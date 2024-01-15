@@ -5,13 +5,12 @@
 int main (void)
 {
 	int fd = open("texto.txt", O_RDONLY);
-	char	*line;
-	int i = 2;
-	while (i--)
-	{
-		//printf("%s", get_next_line(fd));
-		get_next_line(fd);
-	}
+	char *line;
+	int	lines;
+
+	lines = 1;
+	while ((line = get_next_line(fd)))
+		printf("%d-> %s\n", lines++, line);
 	close(fd);
 	return 0;
 }

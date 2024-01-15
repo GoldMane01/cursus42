@@ -28,5 +28,8 @@ typedef struct s_list
 char	*get_next_line(int fd);
 void	ft_lstadd(t_list **list, char *buffer);
 int		find_nl(t_list *node);
+int		len_nl(t_list *list);
+void	free_all(t_list **list, t_list *clean_node, char *buffer);
+t_list	*ft_lstlast(t_list *lst);
 
 #endif

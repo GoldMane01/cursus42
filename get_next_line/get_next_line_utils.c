@@ -10,6 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "get_next_line.h"
+
+void	free_all(t_list **list, t_list *node, char *buffer)
+{
+	t_list	*tmp;
+
+	if (!list)
+		return ;
+	while (*list)
+	{
+		tmp = (*list)->next;
+		free((*list)->str);
+		free(*list);
+		*list = tmp;
+	}
+	*list = NULL;
+	if (node->str[0])
+		*list = node;
+	else
+	{
+		free(buffer);
+		free(node);
+	}
+}
+
 int	find_nl(t_list *node)
 {
 	int	i;
@@ -22,6 +47,29 @@ int	find_nl(t_list *node)
 		i++;
 	}
 	return (0);
+}
+
+int	len_nl(t_list *list)
+{
+	int	i;
+	int	len;
+
+	if (!list)
+		return (0);
+	len = 0;
+	while (list)
+	{
+		i = 0;
+		while (list->str[i])
+		{
+			if (list->str[i] == '\n')
+				return (len + 1);
+			i++;
+			len++;
+		}
+		list = list->next;
+	}
+	return (len);
 }
 
 t_list	*ft_lstlast(t_list *lst)
@@ -39,27 +87,16 @@ t_list	*ft_lstlast(t_list *lst)
 	return (node);
 }
 
-t_list	*ft_lstnew(void *content)
-{
-	t_list	*node;
-
-	node = malloc(sizeof(t_list));
-	if (node)
-	{
-		node->str = content;
-		node->next = NULL;
-	}
-	return (node);
-}
-
 void	ft_lstadd(t_list **list, char *buffer)
 {
 	t_list	*last;
 	t_list	*new;
 
-	new = ft_lstnew(buffer);
+	new = malloc(sizeof(t_list));
 	if (!new)
-		return (NULL);
+		return ;
+	new->str = buffer;
+	new->next = NULL;
 	last = ft_lstlast(*list);
 	if (!last)
 		*list = new;
