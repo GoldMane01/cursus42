@@ -5,3 +5,6 @@ text.txt
 *.swp
 *.o
 *.a
+main.c
+Makefile
+*.gch
