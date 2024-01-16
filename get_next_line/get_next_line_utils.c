@@ -40,7 +40,7 @@ int	find_nl(t_list *node)
 	int	i;
 
 	i = 0;
-	while (node->str[i])
+	while (node && node->str[i] != '\0')
 	{
 		if (node->str[i] == '\n')
 			return (1);
