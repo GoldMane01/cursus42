@@ -4,7 +4,7 @@
 
 int main (void)
 {
-	int fd = open("texto.txt", O_RDONLY);
+	int fd = open("text.txt", O_RDONLY);
 	char *line;
 	int	lines;
 

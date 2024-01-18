@@ -39,12 +39,18 @@ int	find_nl(t_list *node)
 {
 	int	i;
 
-	i = 0;
-	while (node && node->str[i] != '\0')
+	if (!node)
+		return (0);
+	while (node)
 	{
-		if (node->str[i] == '\n')
-			return (1);
-		i++;
+		i = 0;
+		while (node->str[i] && i < BUFFER_SIZE)
+		{
+			if (node->str[i] == '\n')
+				return (1);
+			i++;
+		}
+		node = node->next;
 	}
 	return (0);
 }

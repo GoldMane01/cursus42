@@ -20,7 +20,7 @@ void	clean_list(t_list **list)
 	int		i;
 	int		j;
 
-	buffer = malloc(BUFFER_SIZE + 1);
+	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	node = malloc(sizeof(t_list));
 	if (!buffer || !node)
 		return ;
@@ -63,19 +63,17 @@ void	copy_line(t_list *list, char *str)
 	str[j] = '\0';
 }
 
-char	*get_line(t_list *list)
+void	delete_list(t_list **list)
 {
-	int		len;
-	char	*str;
+	t_list	*tmp;
 
-	if (!list)
-		return (NULL);
-	len = len_nl(list);
-	str = malloc(sizeof(char) * (len + 1));
-	if (!str)
-		return (NULL);
-	copy_line(list, str);
-	return (str);
+	while (*list)
+	{
+		tmp = (*list)->next;
+		free((*list)->str);
+		free(*list);
+		*list = tmp;
+	}
 }
 
 void	newlst(t_list **list, int fd)
@@ -91,6 +89,8 @@ void	newlst(t_list **list, int fd)
 		bytes = read(fd, buffer, BUFFER_SIZE);
 		if (bytes <= 0)
 		{
+			if (bytes == -1)
+				delete_list(list);
 			free(buffer);
 			return ;
 		}
@@ -103,13 +103,18 @@ char	*get_next_line(int fd)
 {
 	static t_list	*list = NULL;
 	char			*line;
+	char			*str;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &line, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	newlst(&list, fd);
 	if (!list)
 		return (NULL);
-	line = get_line(list);
+	str = malloc(sizeof(char) * (len_nl(list) + 1));
+	if (!str)
+		return (NULL);
+	copy_line(list, str);
+	line = str;
 	clean_list(&list);
 	return (line);
 }
