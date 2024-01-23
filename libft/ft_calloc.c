@@ -12,23 +12,20 @@
 
 #include "libft.h"
 
+/** Allocates memory and initializes it to null.
+ * The allocated memory is the count of elements times the size of each.
+ */
 void	*ft_calloc(size_t count, size_t size)
 {
-	char			*ptr;
-	unsigned int	n;
-	unsigned int	i;
+	char				*ptr;
+	unsigned int		i;
 
-	i = 0;
-	n = count * size;
-	ptr = (char *)malloc(sizeof(char) * n);
-	if (ptr != NULL)
-	{
-		while (i < n)
-		{
-			*ptr++ = 0;
-			i++;
-		}
-	}
-	ptr -= i;
-	return (ptr);
+	ptr = (char *)malloc((unsigned int)(count * size));
+	if (!ptr)
+		return (NULL);
+	i = -1;
+	while (++i < (unsigned int)(count * size))
+		*ptr++ = 0;
+	//I make the pointer go i steps back to point it at the start
+	return (ptr - i);
 }

@@ -12,21 +12,23 @@
 
 #include "libft.h"
 
+/** Applies the function passed as parameter to the content of
+ * each element of the list and frees the nodes.
+ * lst is the head of a list.
+ */
 void	ft_lstclear(t_list **lst, void (*del)(void*))
 {
+	//Auxiliary nodes
 	t_list	*node;
 	t_list	*head;
 
-	if (*lst)
+	head = *lst;
+	while (head)
 	{
-		head = *lst;
-		while (head)
-		{
-			(*del)(head->content);
-			node = head->next;
-			free(head);
-			head = node;
-		}
-		*lst = NULL;
+		(*del)(head->content);
+		node = head->next;
+		free(head);
+		head = node;
 	}
+	*lst = NULL;
 }

@@ -12,15 +12,15 @@
 
 #include "libft.h"
 
+//Fills a string with n null chars
 void	ft_bzero(void *s, size_t n)
 {
+	//Auxiliary pointer to not modify the position of *s
 	unsigned char	*p;
 
 	p = (unsigned char *) s;
-	while (n > 0)
+	while (n--)
 	{
-		*p = '\0';
-		p++;
-		n--;
+		*p++ = '\0';
 	}
 }

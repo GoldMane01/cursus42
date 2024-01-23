@@ -10,15 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-static int	invert_sign(int sign)
-{
-	if (sign == 1)
-		return (-1);
-	if (sign == -1)
-		return (1);
-	return (1);
-}
-
+//Receives a string and turns it into an int 
 int	ft_atoi(const char *str)
 {
 	int	sign;
@@ -28,19 +20,22 @@ int	ft_atoi(const char *str)
 	sign = 1;
 	while (*str != '\0')
 	{
+		//Skips any space characters
 		if ((*str > 8 && *str < 14) || *str == 32)
 			str++;
 		else
 			break ;
 	}
+	//Skips any "+" character and changes the sign for any "-" character
 	if (*str == '-' || *str == '+')
 	{
 		if (*str == '-')
-			sign = invert_sign(sign);
+			sign = -sign;
 		str++;
 	}
 	while (*str >= '0' && *str <= '9')
 	{
+		//Builds the number by multiplying by 10 and adding the next char
 		res = (res * 10) + (*str - '0');
 		str++;
 	}
