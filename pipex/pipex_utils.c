@@ -19,20 +19,14 @@ int	count_strs(char const *s)
 }
 
 //This function is mostly to malloc memory for the params
-char	*get_filename(char *s)
+char	*get_cmd(char *s)
 {
 	char	*str;
-	int		i;
 
-	str = malloc(sizeof(char) * (ft_strlen(s) + 1));
+	str = malloc(sizeof(char) * (ft_strlen(s) + ft_strlen("/bin/") + 1));
 	if (!str)
 		return (NULL);
-	i = 0;
-	while (s && s[i])
-	{
-		str[i] = s[i];
-		i++;
-	}
-	str[i] = '\0';
+	ft_strlcpy(str, "/bin/", 6);
+	ft_strlcat(str, s, ft_strlen(s) + ft_strlen(str) + 1);
 	return (str);
 }

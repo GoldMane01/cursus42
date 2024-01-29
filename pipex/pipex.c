@@ -7,7 +7,7 @@ void	split_args(char **params, char *args)
 	int	k;
 
 	i = -1;
-	k = 1; //K starts at 1 because the first pointer is the string with the filename
+	k = 0;
 	while (args[++i])
 	{
 		if (args[i] != ' ')
@@ -21,16 +21,15 @@ void	split_args(char **params, char *args)
 	}
 }
 
-char	**get_params(char *file, char *args)
+char	**get_params(char *args)
 {
 	char	**params;
 	int		len;
 
-	len = count_strs(args) + 1;
+	len = count_strs(args);
 	params = malloc(sizeof(char *) * (len + 1));
 	if (!params)
 		return (NULL);
-	params[0] = get_filename(file);
 	split_args(params, args);
 	params[len] = NULL;
 	return (params);
@@ -42,19 +41,21 @@ int	main(int argc, char *argv[])
 	int		pid1;
 	//int		pid2;
 	char	**params;
+	char	*cmd;
 
-	params = get_params(argv[1], argv[2]);
-	execve(argv[1], params, NULL); //I think argv is actually what goes on the first parameter of execve
+	if (argc <= 2)
+		perror("Too few arguments");
+	params = get_params(argv[2]);
+	cmd = get_cmd(params[0]);
 	if (pipe(fd) == -1)
 		return (1);
-	//pid1 = fork();
+	pid1 = fork();
 	if (pid1 < 0)
 		return (2);
 	if (pid1 == 0)
 	{
 		//Child process 1
-		params = get_params(argv[1], argv[2]);
-		//execve("/usr/bin/ls", params(argv[1], argv[2]), NULL);
+		execve(cmd, params, NULL);
 	}
 	return (0);
 }

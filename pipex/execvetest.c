@@ -1,13 +1,15 @@
 #include "pipex.h"
 
-int	main(void)
+int	main(int argc, char *argv[])
 {
-	char	cmd[] = "/usr/bin/ls";
-	char	*argvec[] = {"ls", "-l", "-h", NULL};
+	char	cmd[] = "/bin/grep";
+	char	*argvec[] = {"grep", "ennove", NULL};
+	char	*argvec2[] = {"cat", NULL};
 	//char	*envvec[] = {NULL};
 
 	if (execve(cmd, argvec, NULL) == -1)
 	{
 		perror("could not execute execve");
 	}
+	execve("/bin/cat", argvec, NULL);
 }
