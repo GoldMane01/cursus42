@@ -6,6 +6,7 @@
 # include <stdio.h>
 # include <stddef.h>
 # include <fcntl.h>
+# include <sys/wait.h>
 
 int		ft_strlen(const char *s);
 int		count_strs(char const *s);
