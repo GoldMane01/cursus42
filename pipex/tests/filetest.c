@@ -6,7 +6,7 @@ void	second_file()
 	char *argvec[] = {"wc", "-l", NULL};
 	int pid1;
 	int pid2;
-	char buffer[1025];
+	char buffer[10];
 	int bytes;
 	int fd;
 
@@ -18,9 +18,13 @@ void	second_file()
 		close(link[0]);
 		dup2(link[1], STDOUT_FILENO);
 		fd = open("output", O_RDONLY);
-		bytes = read(fd, buffer, 1024);
-		buffer[1024] = '\0';
-		write(STDOUT_FILENO, buffer, bytes);
+		//read(fd, buffer, 1024);
+		while(read(fd, buffer, 10))
+		{
+			write(STDOUT_FILENO, buffer, bytes);
+		}
+		//buffer[1024] = '\0';
+		
 		close(link[1]);
 		exit(1);
 	}
@@ -47,7 +51,8 @@ void	first_file()
 	int bytes;
 	int fd;
 
-	pipe(link);
+	if (pipe(link) == -1)
+		return ;
 
 	pid1 = fork();
 	if (pid1 == 0)

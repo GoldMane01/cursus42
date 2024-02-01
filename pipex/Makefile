@@ -13,7 +13,7 @@ RM		= rm -f
 #--Files--#
 
 NAME	= pipex
-SRCS	= pipex.c pipex_utils.c pipex_lib.c
+SRCS	= pipex.c lib.c strings.c
 
 OBJS	= $(SRCS:.c=.o)
 
