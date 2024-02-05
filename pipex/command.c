@@ -40,7 +40,7 @@ void	first_cp2(int *link, char **arg)
 		perror("Command could not be executed");
 }
 
-void	second_cp1(int *link, char **arg)
+void	second_cp1(int *link)
 {
 	char	buffer[1025];
 	int		bytes;

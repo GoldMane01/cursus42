@@ -10,7 +10,7 @@ int	second_command(char **arg)
 		perror("Pipe has failed to execute");
 	pid1 = fork();
 	if (pid1 == 0)
-		second_cp1(fd, arg);
+		second_cp1(fd);
 	pid2 = fork();
 	if (pid2 == 0)
 		second_cp2(fd, arg);

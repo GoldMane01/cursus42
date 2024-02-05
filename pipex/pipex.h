@@ -24,7 +24,7 @@ char	*cmdname(char *s);
 
 void	first_cp1(int *fd, char **arg);
 void	first_cp2(int *link, char **arg);
-void	second_cp1(int *link, char **arg);
+void	second_cp1(int *link);
 void	second_cp2(int *link, char **arg);
 
 #endif
