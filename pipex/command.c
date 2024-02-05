@@ -8,6 +8,11 @@ void	first_cp1(int *link, char **arg)
 
 	close(link[0]);
 	dup2(link[1], STDOUT_FILENO);
+	if (access(arg[0], R_OK) != 0)
+	{
+		perror("Could not access input file");
+		exit(1);
+	}
 	fd = open(arg[0], O_RDONLY);
 	bytes = read(fd, buffer, 1024);
 	buffer[bytes] = '\0';
@@ -26,7 +31,8 @@ void	first_cp2(int *link, char **arg)
 	if (access("temp", W_OK) != 0)
 	{
 		unlink("temp");
-		perror("Could not access temp file");
+		perror("Temp file was not created properly");
+		exit(1);
 	}
 	dup2(fd, STDOUT_FILENO);
 	close(link[0]);
@@ -46,6 +52,7 @@ void	second_cp1(int *link, char **arg)
 	{
 		unlink("temp");
 		perror("Could not access temp file");
+		exit(1);
 	}
 	fd = open("temp", O_RDONLY);
 	bytes = read(fd, buffer, 1024);
@@ -66,6 +73,7 @@ void	second_cp2(int *link, char **arg)
 	{
 		unlink("temp");
 		perror("Could no write into file");
+		exit(1);
 	}
 	dup2(fd, STDOUT_FILENO);
 	close(link[0]);

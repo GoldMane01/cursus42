@@ -1,5 +1,18 @@
 #include "pipex.h"
 
+void	free_split(char **params)
+{
+	int	i;
+
+	i = 0;
+	while (params[i])
+	{
+		free(params[i]);
+		i++;
+	}
+	free(params);
+}
+
 void	split_args(char **params, char *args)
 {
 	int	i;
@@ -16,6 +29,11 @@ void	split_args(char **params, char *args)
 			while (args[i + j] != ' ' && args[i + j])
 				j++;
 			params[k++] = ft_substr(args, i, j);
+			if (!params[k - 1])
+			{
+				free_split(params);
+				return ;
+			}
 			i += j - 1;
 		}
 	}
@@ -49,38 +67,5 @@ char	**get_params(char *file, char *cmd)
 	params[0] = file;
 	params[count_strs(cmd) + 1] = NULL;
 	split_args(params, cmd);
-	return (params);
-}
-
-char	*cmdname(char *s)
-{
-	char	*str;
-
-	str = malloc(sizeof(char) * (ft_strlen(s) + ft_strlen("/bin/") + 1));
-	if (!str)
-		return (NULL);
-	ft_strlcpy(str, "/bin/", 6);
-	ft_strlcat(str, s, ft_strlen(s) + ft_strlen(str) + 1);
-	return (str);
-}
-
-char	**cmdargs(char **arg)
-{
-	char	**params;
-	int		size;
-	int		i;
-
-	size = 0;
-	i = 1;
-	while (arg[i++])
-		size++;
-	params = malloc(sizeof(char *) * (size + 1));
-	params[size] = NULL;
-	i = 0;
-	while (arg[i + 1])
-	{
-		params[i] = arg[i + 1];
-		i++;
-	}
 	return (params);
 }
