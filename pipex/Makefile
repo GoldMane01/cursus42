@@ -6,14 +6,14 @@ GREEN	= \033[0;32m
 NC		= \033[0m
 
 CC		= gcc
-LIBC	= ar -rcs
+LIBC	= ar rcs
 CFLAGS	= -Wall -Wextra -Werror
 RM		= rm -f
 
 #--Files--#
 
 NAME	= pipex
-SRCS	= pipex.c lib.c strings.c command.c cmd.c
+SRCS	= pipex.c cmd.c command.c lib.c strings.c
 
 OBJS	= $(SRCS:.c=.o)
 
@@ -38,4 +38,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: .c.o all clean fclean re
+.PHONY: .c.o all clean fclean re bonus
