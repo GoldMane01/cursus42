@@ -12,6 +12,9 @@
 
 #include "ft_printf.h"
 
+/** Writes strings. It's separate from ft_simple because it's used
+ * in other places.
+*/
 int	ft_putstr(char *s)
 {
 	int	i;

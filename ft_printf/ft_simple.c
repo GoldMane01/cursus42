@@ -12,6 +12,7 @@
 
 #include "ft_printf.h"
 
+//Writes strings
 int	print_str(char *s)
 {
 	if (s)
@@ -27,6 +28,7 @@ int	print_str(char *s)
 	return (-1);
 }
 
+//Writes single chars
 int	print_char(char c)
 {
 	if (write(1, &c, 1) != -1)
@@ -34,6 +36,7 @@ int	print_char(char c)
 	return (-1);
 }
 
+//Writes ints
 int	print_int(int d)
 {
 	char	*s;
@@ -49,6 +52,7 @@ int	print_int(int d)
 	return (len);
 }
 
+//Writes unsigned ints
 int	print_uint(unsigned int n)
 {
 	int		i;

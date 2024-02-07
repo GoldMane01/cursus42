@@ -12,6 +12,7 @@
 
 #include "ft_printf.h"
 
+//Redirects the input to each specific function for each type of var
 static int	printvar(va_list arg, char c)
 {
 	if (c == 's')
@@ -30,12 +31,16 @@ static int	printvar(va_list arg, char c)
 		return (print_char(c));
 }
 
+/** This function ends the variadic funciton.
+ * It was made because the ft_printf function suprassed 25 lines.
+*/
 int	end(va_list arg, int n)
 {
 	va_end(arg);
 	return (n);
 }
 
+//Replicates the printf function
 int	ft_printf(char const *str, ...)
 {
 	va_list	arg;
@@ -45,12 +50,17 @@ int	ft_printf(char const *str, ...)
 
 	len = 0;
 	i = -1;
+	//Starts the pointer for the variable number of arguments.
 	va_start(arg, str);
 	while (str[++i])
 	{
+		/** Everytime a % is found the next char is checked
+		 * to determine what type of variable to print.
+		*/
 		if (str[i] == '%')
 		{
 			j = printvar(arg, str[++i]);
+			//If any write function returns -1, the whole function fails
 			if (j == -1)
 				return (end(arg, -1));
 			len += j - 1;

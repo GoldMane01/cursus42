@@ -12,6 +12,7 @@
 
 #include "ft_printf.h"
 
+//Aux function for ft_putnbr_hex. It could probably be joined together
 static int	unsigned_base(unsigned int nb, char *base)
 {
 	int	len;
@@ -35,6 +36,7 @@ static int	unsigned_base(unsigned int nb, char *base)
 	return (len);
 }
 
+//Writes the hex number
 static int	ft_putnbr_hex(unsigned int nb, char *base)
 {
 	int	len;
@@ -48,6 +50,7 @@ static int	ft_putnbr_hex(unsigned int nb, char *base)
 	return (len);
 }
 
+//Writes a hex number in either lower or uppercase
 int	print_hex(int n, char c)
 {
 	int	i;

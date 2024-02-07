@@ -12,6 +12,7 @@
 
 #include "ft_printf.h"
 
+//Transforms the address in hex
 static int	hexptr(unsigned long long n, char *base)
 {
 	int	len;
@@ -29,6 +30,7 @@ static int	hexptr(unsigned long long n, char *base)
 	return (len);
 }
 
+//Writes the memory address of a pointer in hex
 int	print_pointer(void *ptr)
 {
 	unsigned long long	n;
