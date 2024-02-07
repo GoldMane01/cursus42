@@ -12,6 +12,7 @@
 
 #include "get_next_line.h"
 
+//Frees all the content of the list and buffer for the next run
 void	free_all(t_list **list, t_list *node, char *buffer)
 {
 	t_list	*tmp;
@@ -35,6 +36,7 @@ void	free_all(t_list **list, t_list *node, char *buffer)
 	}
 }
 
+//Searches a list to find a \\n
 int	find_nl(t_list *node)
 {
 	int	i;
@@ -55,6 +57,9 @@ int	find_nl(t_list *node)
 	return (0);
 }
 
+/** Returns the length of the string that will be created by
+ * iterating each element of the list until it finds a \\n
+*/
 int	len_nl(t_list *list)
 {
 	int	i;
@@ -78,6 +83,7 @@ int	len_nl(t_list *list)
 	return (len);
 }
 
+//Returns the last node of a list
 t_list	*ft_lstlast(t_list *lst)
 {
 	t_list	*node;
@@ -93,6 +99,7 @@ t_list	*ft_lstlast(t_list *lst)
 	return (node);
 }
 
+//Adds the buffer to the next node of the list
 void	ft_lstadd(t_list **list, char *buffer)
 {
 	t_list	*last;

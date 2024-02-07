@@ -12,6 +12,7 @@
 
 #include "get_next_line.h"
 
+//Removes all the content from the list that isn't needed anymore
 void	clean_list(t_list **list)
 {
 	t_list	*last;
@@ -37,6 +38,7 @@ void	clean_list(t_list **list)
 	free_all(list, node, buffer);
 }
 
+//Copies the resulting line from the list into a string.
 void	copy_line(t_list *list, char *str)
 {
 	int	i;
@@ -63,6 +65,7 @@ void	copy_line(t_list *list, char *str)
 	str[j] = '\0';
 }
 
+//Deletes all elementes from the list and frees it.
 void	delete_list(t_list **list)
 {
 	t_list	*tmp;
@@ -76,6 +79,7 @@ void	delete_list(t_list **list)
 	}
 }
 
+//Reads from the file until it finds a \n or the file ends
 void	newlst(t_list **list, int fd)
 {
 	char	*buffer;
@@ -89,6 +93,7 @@ void	newlst(t_list **list, int fd)
 		bytes = read(fd, buffer, BUFFER_SIZE);
 		if (bytes <= 0)
 		{
+			//If the read function fails, the entire list is deleted
 			if (bytes == -1)
 				delete_list(list);
 			free(buffer);
@@ -99,8 +104,10 @@ void	newlst(t_list **list, int fd)
 	}
 }
 
+//Replicates the get_next_line function
 char	*get_next_line(int fd)
 {
+	//The chars will be stored in a static list
 	static t_list	*list = NULL;
 	char			*line;
 	char			*str;
