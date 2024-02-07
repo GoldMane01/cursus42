@@ -12,6 +12,7 @@
 
 #include "libft.h"
 
+//Returns the last element of a list
 t_list	*ft_lstlast(t_list *lst)
 {
 	t_list	*node;

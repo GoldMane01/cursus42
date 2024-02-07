@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+//Returns a pointer to the first ocurrence of c in the string s
 char	*ft_strchr(const char *s, int c)
 {
 	char	*ptr;

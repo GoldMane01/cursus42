@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+//Applies the function f to each element of the s pointer.
 void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 {
 	int		i;

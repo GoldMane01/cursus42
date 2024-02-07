@@ -12,6 +12,7 @@
 
 #include "libft.h"
 
+//Copies dstsize bytes from the string src into dst.
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
 	int		i;

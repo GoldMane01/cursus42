@@ -12,6 +12,10 @@
 
 #include "libft.h"
 
+/** Returns a positive or negative number based on the difference between
+ * s1 and s2. It scans for n bytes.
+ * Returns 0 if no difference is found.
+*/
 int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
 	unsigned char	*ptr1;

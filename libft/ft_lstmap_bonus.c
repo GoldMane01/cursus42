@@ -12,6 +12,10 @@
 
 #include "libft.h"
 
+/** Applies the function f to each element of the list.
+ * If the function fails, then the function del is applied to
+ * the content and the list is cleared.
+*/
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
 	t_list	*head;

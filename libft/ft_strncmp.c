@@ -12,6 +12,10 @@
 
 #include "libft.h"
 
+/** Compares two strings for n bytes and returns the difference found.
+ * The difference is returned as a positive or negative number, or
+ * zero if no difference is found.
+*/
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	unsigned int	counter;

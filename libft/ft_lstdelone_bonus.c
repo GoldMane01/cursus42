@@ -12,6 +12,7 @@
 
 #include "libft.h"
 
+//Applies the funcion del to th content of a list node
 void	ft_lstdelone(t_list *lst, void (*del)(void*))
 {
 	(*del)(lst->content);

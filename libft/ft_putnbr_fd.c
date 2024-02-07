@@ -13,6 +13,7 @@
 #include "libft.h"
 #include <stdio.h>
 
+//Writes an int on the given fd
 void	ft_putnbr_fd(int n, int fd)
 {
 	char	c;

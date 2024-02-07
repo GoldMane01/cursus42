@@ -12,6 +12,9 @@
 
 #include "libft.h"
 
+/** Concatenates the src string into dst for dstsize bytes.
+ * Returns the total length of the result.
+*/
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
 	size_t	dlen;
@@ -25,6 +28,9 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 		dlen++;
 	while (src[slen] != '\0')
 		slen++;
+	/** If the dstsize is lower or equal than the size of the original
+	 * string, then it won't append anything.
+	*/
 	if (dstsize <= dlen)
 		slen += dstsize;
 	else

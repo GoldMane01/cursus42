@@ -12,6 +12,11 @@
 
 #include "libft.h"
 
+/** Copies len bytes from src into dst.
+ * The function starts copying from the end of the start of the
+ * pointer depending on the memory areas of each pointer so
+ * that they don't overlap.
+*/
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
 	unsigned char	*cdst;

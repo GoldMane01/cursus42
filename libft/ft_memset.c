@@ -12,6 +12,7 @@
 
 #include "libft.h"
 
+//Fills the first len bytes of the pointer b with c
 void	*ft_memset(void *b, int c, size_t len)
 {
 	unsigned char	*p;

@@ -12,6 +12,7 @@
 
 #include "libft.h"
 
+//Counts the amount of strings the end array will have.
 static size_t	count_strs(char const *s, char c)
 {
 	int	count;
@@ -30,6 +31,7 @@ static size_t	count_strs(char const *s, char c)
 	return (count);
 }
 
+//Frees every pointer in the array and the array itself
 static char	**free_ptr(char	**ptr)
 {
 	int	i;
@@ -44,6 +46,9 @@ static char	**free_ptr(char	**ptr)
 	return (NULL);
 }
 
+/** Splits the string s into an array of pointers.
+ * Splits the string throught the char c.
+*/
 char	**ft_split(char const *s, char c)
 {
 	int		i;
@@ -58,11 +63,16 @@ char	**ft_split(char const *s, char c)
 		return (NULL);
 	while (s[++i])
 	{
+		/** When the char c is found on the string
+		 * the j var is set to zero and added to i to start
+		 * counting from the last char c found.
+		*/
 		if (s[i] != c)
 		{
 			j = 0;
 			while (s[i + j] != c && s[i + j])
 				j++;
+			//If the substring fails the whole array is freed
 			ptr[k++] = ft_substr(s, i, j);
 			if (!ptr[k - 1])
 				return (free_ptr(ptr));

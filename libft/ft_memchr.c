@@ -12,6 +12,10 @@
 
 #include "libft.h"
 
+/** Finds the first occurrence of the c character in the s pointer
+ * for n bytes.
+ * Returns a pointer to the character if it's found.
+*/
 void	*ft_memchr(const void *s, int c, size_t n)
 {
 	unsigned char	*ptr;
@@ -22,9 +26,7 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	while (n > 0)
 	{
 		if (*ptr == ch)
-		{
 			return (ptr);
-		}
 		ptr++;
 		n--;
 	}

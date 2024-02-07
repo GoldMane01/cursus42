@@ -12,6 +12,7 @@
 
 #include "libft.h"
 
+//Applies the function f to a list node
 void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
 	t_list	*node;

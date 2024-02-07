@@ -12,6 +12,7 @@
 
 #include "libft.h"
 
+//Returns the size of a list
 int	ft_lstsize(t_list *lst)
 {
 	int		count;

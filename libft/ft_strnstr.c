@@ -12,6 +12,7 @@
 
 #include "libft.h"
 
+
 static int	check_strequal(char *ptr, const char *needle, size_t len)
 {
 	int	count;
@@ -31,6 +32,10 @@ static int	check_strequal(char *ptr, const char *needle, size_t len)
 	return (1);
 }
 
+/** Finds the string needle in haystack and returns a pointer
+ * to the rest of the string.
+ * Searches for at most len chars of haystack.
+*/
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
 	char	*ptr;
@@ -40,6 +45,7 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 		return (ptr);
 	while (len > 0 && *haystack != '\0')
 	{
+		//When an equal char is found, the rest of the pointer is returned
 		if (*haystack == *needle)
 		{
 			ptr = (char *)haystack;

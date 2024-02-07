@@ -12,6 +12,7 @@
 
 #include "libft.h"
 
+//Returns a pointer with the strings s1 and s2 concatenated.
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*ptr;

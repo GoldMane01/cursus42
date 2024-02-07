@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+//Returns a pointer to the last occurrence of the char c in the string s
 char	*ft_strrchr(const char *s, int c)
 {
 	char	*ptr;
@@ -18,9 +19,7 @@ char	*ft_strrchr(const char *s, int c)
 	while (*s != '\0')
 	{
 		if (*s == (char)c)
-		{
 			ptr = (char *) s;
-		}
 		s++;
 	}
 	if ((char)c == '\0')

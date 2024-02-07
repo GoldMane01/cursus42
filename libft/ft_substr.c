@@ -12,12 +12,16 @@
 
 #include "libft.h"
 
+//Returns a substring of s from start until len.
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*ptr;
 
 	if (!s)
 		return (0);
+	/** If start is bigger than the lenght of s I return a pointer with
+	 * one \0 char.
+	*/
 	if (ft_strlen(s) < start)
 	{
 		ptr = malloc(sizeof(char) * (1));
@@ -29,6 +33,10 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	}
 	else
 	{
+		/** If the length of the starting point until the end is lower
+		 * than len, then only that length is allocated.
+		 * If it is not, then only len chars are allocated.
+		*/
 		if (ft_strlen(s + start) < len)
 			len = ft_strlen(s + start);
 		if (ft_strlen(s + start) > len)
