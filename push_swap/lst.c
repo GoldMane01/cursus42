@@ -25,10 +25,11 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 	{
 		node = ft_lstlast(*lst);
 		node->next = new;
+		new->next = NULL;
 	}
 }
 
-t_list	*ft_lstnew(int number)
+t_list	*ft_lstnew(int number, int position)
 {
 	t_list	*node;
 
@@ -36,7 +37,7 @@ t_list	*ft_lstnew(int number)
 	if (node)
 	{
 		node->num = number;
-		node->pos = -1;
+		node->pos = position;
 		node->next = NULL;
 	}
 	return (node);

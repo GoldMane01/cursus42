@@ -11,7 +11,7 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
-t_list	*ft_lstnew(int number);
+t_list	*ft_lstnew(int number, int position);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_lstadd_front(t_list **lst, t_list *new);
 t_list	*ft_lstlast(t_list *lst);
@@ -25,10 +25,10 @@ void	op_ss(t_list **stka, t_list **stkb);
 void	op_rr(t_list **stka, t_list **stkb);
 void	op_rrr(t_list **stka, t_list **stkb);
 
-void	op_swap(t_list **head);
-void	op_push(t_list **pull, t_list **push);
-void	op_rev_rotate(t_list **head);
-void	op_rotate(t_list **head);
+void	op_swap(t_list **head, int c);
+void	op_push(t_list **pull, t_list **push, int c);
+void	op_rev_rotate(t_list **head, int c);
+void	op_rotate(t_list **head, int c);
 
 void	position(t_list **stka);
 

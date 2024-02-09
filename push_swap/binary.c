@@ -4,9 +4,7 @@ int	bin_base(int nb)
 {
 	int	binary;
 	int	power;
-	int	i;
 
-	i = 0;
 	power = 1;
 	binary = 0;
 	while (nb > 0)
@@ -14,7 +12,6 @@ int	bin_base(int nb)
 		binary += power * (nb % 2);
 		power = power * 10;
 		nb = nb / 2;
-		i++;
 	}
 	return (binary);
 }
