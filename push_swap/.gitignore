@@ -1,0 +1,4 @@
+checker*
+*.o
+.DS_Store
+push_swap

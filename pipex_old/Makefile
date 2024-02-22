@@ -7,34 +7,22 @@
 #                                     CONFIG                                   #
 ################################################################################
 
-NAME        := push_swap
+NAME        := pipex
 CC        := gcc
 FLAGS    := -Wall -Wextra -Werror 
 ################################################################################
 #                                 PROGRAM'S SRCS                               #
 ################################################################################
 
-SRCS        :=      lib/ft_atoi.c \
-                          lib/ft_lstadd_back.c \
-                          lib/ft_lstadd_front.c \
-                          lib/ft_lstlast.c \
-                          lib/ft_lstnew.c \
-                          lib/ft_lstsize.c \
-                          lib/ft_split.c \
-                          lib/ft_strjoin.c \
-                          lib/ft_strlcat.c \
-                          lib/ft_strlcpy.c \
-                          lib/ft_strlen.c \
-                          lib/ft_strncmp.c \
-                          lib/ft_substr.c \
-                          ops/doubles.c \
-                          ops/swaps.c \
-                          push_swap.c \
-                          utils/errors.c \
-                          utils/parse.c \
-                          utils/position.c \
-                          utils/sort.c \
-                          utils/utils.c \
+SRCS        :=      awkhandler.c \
+                          cmd.c \
+                          command.c \
+                          lib.c \
+                          pathfinder.c \
+                          pathget.c \
+                          pipex.c \
+                          split.c \
+                          strings.c \
                           
 OBJS        := $(SRCS:.c=.o)
 

@@ -1,0 +1,23 @@
+total 264
+-rw-r--r--  1 dramos-n  2023_malaga   1996 Feb 14 15:56 Makefile
+-rw-r--r--  1 dramos-n  2023_malaga   2156 Feb 14 16:04 cmd.c
+-rw-r--r--  1 dramos-n  2023_malaga   2216 Feb 15 14:43 cmd.o
+-rw-r--r--  1 dramos-n  2023_malaga   2530 Feb 14 15:18 command.c
+-rw-r--r--  1 dramos-n  2023_malaga   3000 Feb 15 14:43 command.o
+-rw-r--r--  1 dramos-n  2023_malaga      7 Feb 12 16:14 input
+-rw-r--r--  1 dramos-n  2023_malaga   2288 Feb 12 15:16 lib.c
+-rw-r--r--  1 dramos-n  2023_malaga   2016 Feb 15 14:43 lib.o
+-rw-r--r--  1 dramos-n  2023_malaga      0 Feb 15 14:44 output
+-rw-r--r--  1 dramos-n  2023_malaga   1727 Feb 14 16:07 pathfinder.c
+-rw-r--r--  1 dramos-n  2023_malaga   1548 Feb 15 14:43 pathfinder.o
+-rw-r--r--  1 dramos-n  2023_malaga   1530 Feb 14 16:07 pathget.c
+-rw-r--r--  1 dramos-n  2023_malaga   1468 Feb 15 14:43 pathget.o
+-rwxr-xr-x  1 dramos-n  2023_malaga  51376 Feb 15 14:43 pipex
+-rw-r--r--  1 dramos-n  2023_malaga   1899 Feb 14 16:06 pipex.c
+-rw-r--r--  1 dramos-n  2023_malaga   1878 Feb 14 15:46 pipex.h
+-rw-r--r--  1 dramos-n  2023_malaga   2180 Feb 15 14:43 pipex.o
+-rw-r--r--  1 dramos-n  2023_malaga   1692 Feb 14 16:07 split.c
+-rw-r--r--  1 dramos-n  2023_malaga   1616 Feb 15 14:43 split.o
+-rw-r--r--  1 dramos-n  2023_malaga   1834 Feb 14 15:12 strings.c
+-rw-r--r--  1 dramos-n  2023_malaga   1796 Feb 15 14:43 strings.o
+-rw-r--r--  1 dramos-n  2023_malaga      7 Feb 15 14:44 temp
