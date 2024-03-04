@@ -26,5 +26,11 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	**ft_split(char const *s, char c);
 char	**get_commands(char *argv[], int argc);
+int		create_temp_file();
+void	execute_command(char *command, int cmdnum, char *infile);
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
+char	**find_paths(char *envp[]);
+char	*get_path(char *path, char *command);
+int		check_access(char *path, char *command);
 
 #endif

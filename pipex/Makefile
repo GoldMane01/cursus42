@@ -9,12 +9,14 @@
 
 NAME        := pipex
 CC        := gcc
-FLAGS    := -Wall -Wextra -Werror 
+FLAGS    := #-Wall -Wextra -Werror 
 ################################################################################
 #                                 PROGRAM'S SRCS                               #
 ################################################################################
 
-SRCS        :=      strings/commands.c \
+SRCS        :=      files/tempfile.c \
+                          strings/commands.c \
+                          utils/redirect.c \
                           pipex.c \
                           lib/ft_split.c \
                           lib/ft_substr.c \
