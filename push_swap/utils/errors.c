@@ -64,20 +64,20 @@ int	check_input(char **nums)
 	i = -1;
 	if (check_count(nums) < 2)
 	{
-		write(1, "Too few arguments", 17);
+		write(STDERR_FILENO, "Too few arguments\n", 18);
 		return (-1);
 	}
 	while (nums[++i])
 	{
 		if (check_chars(nums[i]) == -1)
 		{
-			write(1, "Bad input", 9);
+			write(STDERR_FILENO, "Bad input\n", 10);
 			return (-1);
 		}
 	}
 	if (check_repeats(nums) == -1)
 	{
-		write(1, "Duplicate numbers", 17);
+		write(STDERR_FILENO, "Duplicate numbers\n", 18);
 		return (-1);
 	}
 	return (1);
