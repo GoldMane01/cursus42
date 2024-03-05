@@ -9,11 +9,11 @@ int	main(int argc, char *argv[], char *envp[])
 
 	commands = get_commands(argv, argc);
 	tempfd = create_temp_file();
-	paths = find_paths(envp);
 	cmdnum = 0;
-	while (commands[cmdnum])
+	while (commands && commands[cmdnum])
 	{
-		execute_command(commands, cmdnum, argv[1]);
+		execute_command(commands, cmdnum, argv[1], envp);
+		cmdnum++;
 	}
 	return (0);
 }

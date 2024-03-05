@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
+#include "../pipex.h"
 
 static int	check_strequal(char *ptr, const char *needle, size_t len)
 {

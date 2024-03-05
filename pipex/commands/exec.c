@@ -43,7 +43,7 @@ void	read_input(int link[], char *infile)
 	exit(1);
 }
 
-void	execute_command(char **commands, int cmdnum, char *infile)
+void	execute_command(char **commands, int cmdnum, char *infile, char *envp[])
 {
 	int	fd[2];
 	int	pid;
@@ -53,11 +53,17 @@ void	execute_command(char **commands, int cmdnum, char *infile)
 	pid = fork();
 	if (pid == 0)
 	{
-		if (cmdnum == 0)
-			read_input(fd, infile);
-		else
-			read_temp(fd);
+		//if (cmdnum == 0)
+			//read_input(fd, infile);
+		//else
+			//read_temp(fd);
+		cmdname(commands[cmdnum], envp);
 		if (!last_command(commands, cmdnum))
-			write_temp();
+		{
+			
+			//printf("%s\n", cmdname(commands[cmdnum], envp));
+			//write_temp(fd, cmdname(commands[cmdnum], envp), commands[cmdnum]);
+		}
 	}
+	waitpid(pid, NULL, 0);
 }

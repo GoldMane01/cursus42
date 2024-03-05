@@ -16,8 +16,13 @@ FLAGS    := #-Wall -Wextra -Werror
 
 SRCS        :=      files/tempfile.c \
                           strings/commands.c \
-                          utils/redirect.c \
+                          commands/exec.c \
+                          commands/last.c \
+                          commands/arguments.c \
                           pipex.c \
+                          path/pathfind.c \
+                          path/pathget.c \
+                          lib/ft_strnstr.c \
                           lib/ft_split.c \
                           lib/ft_substr.c \
                           lib/ft_strlcat.c \

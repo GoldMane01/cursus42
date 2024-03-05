@@ -6,7 +6,7 @@ char	**find_paths(char *envp[])
 
 	while (*envp != NULL)
 	{
-		if (ft_strnstr(*envp, "PATH", 50))
+		if (ft_strnstr(*envp, "PATH", 5))
 			break ;
 		envp++;
 	}

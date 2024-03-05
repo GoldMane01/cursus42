@@ -27,10 +27,17 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	**ft_split(char const *s, char c);
 char	**get_commands(char *argv[], int argc);
 int		create_temp_file();
-void	execute_command(char *command, int cmdnum, char *infile);
+void	execute_command(char **commands, int cmdnum, char *infile, char *envp[]);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 char	**find_paths(char *envp[]);
 char	*get_path(char *path, char *command);
 int		check_access(char *path, char *command);
+void	write_temp(int link[], char *path, char *arg);
+char	*get_path(char *path, char *command);
+char	**find_paths(char *envp[]);
+char	*cmdname(char *s, char *envp[]);
+int		check_access(char *path, char *command);
+int		last_command(char **commands, int cmdnum);
+char	**cmdargs(char **arg);
 
 #endif
