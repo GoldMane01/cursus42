@@ -1,12 +1,12 @@
 #include "../pipex.h"
 
-void	write_temp(int link[], char *path, char *arg)
+void	write_temp(int link[], char *path, char **arg)
 {
 	int	fd;
 
 	close(link[1]);
 	dup2(link[0], STDIN_FILENO);
-	fd = open("temp", O_RDWR | O_CREAT, 0666);
+	fd = open("temp", O_RDWR | O_CREAT | O_TRUNC, 0666);
 	if (access("temp", W_OK) != 0)
 	{
 		unlink("temp");

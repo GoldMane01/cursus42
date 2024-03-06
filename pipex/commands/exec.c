@@ -57,13 +57,13 @@ void	execute_command(char **commands, int cmdnum, char *infile, char *envp[])
 			//read_input(fd, infile);
 		//else
 			//read_temp(fd);
-		cmdname(commands[cmdnum], envp);
 		if (!last_command(commands, cmdnum))
 		{
-			
-			//printf("%s\n", cmdname(commands[cmdnum], envp));
-			//write_temp(fd, cmdname(commands[cmdnum], envp), commands[cmdnum]);
+			write_temp(fd, cmdname(commands[cmdnum], envp), ft_split(commands[cmdnum], ' '));
+			exit(1);
 		}
 	}
+	close(fd[0]);
+	close(fd[1]);
 	waitpid(pid, NULL, 0);
 }

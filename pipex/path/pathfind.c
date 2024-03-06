@@ -17,12 +17,14 @@ char	**find_paths(char *envp[])
 int	check_access(char *path, char *command)
 {
 	char	*ptr;
+	char	**cmdsplit;
 
-	ptr = malloc(sizeof(char) * (ft_strlen(path) + ft_strlen(command) + 1));
+	cmdsplit = ft_split(command, ' ');
+	ptr = malloc(sizeof(char) * (ft_strlen(path) + ft_strlen(cmdsplit[0]) + 1));
 	if (!ptr)
 		return (0);
 	ft_strlcpy(ptr, path, ft_strlen(path) + 1);
-	ft_strlcat(ptr, command, ft_strlen(path) + ft_strlen(command) + 1);
+	ft_strlcat(ptr, cmdsplit[0], ft_strlen(path) + ft_strlen(cmdsplit[0]) + 1);
 	if (access(ptr, F_OK) != 0)
 		return (0);
 	return (1);
@@ -31,11 +33,13 @@ int	check_access(char *path, char *command)
 char	*get_path(char *path, char *command)
 {
 	char	*ptr;
+	char	**cmdsplit;
 
-	ptr = malloc(sizeof(char) * (ft_strlen(path) + ft_strlen(command) + 1));
+	cmdsplit = ft_split(command, ' ');
+	ptr = malloc(sizeof(char) * (ft_strlen(path) + ft_strlen(cmdsplit[0]) + 1));
 	if (!ptr)
 		return (0);
 	ft_strlcpy(ptr, path, ft_strlen(path) + 1);
-	ft_strlcat(ptr, command, ft_strlen(path) + ft_strlen(command) + 1);
+	ft_strlcat(ptr, cmdsplit[0], ft_strlen(path) + ft_strlen(cmdsplit[0]) + 1);
 	return (ptr);
 }

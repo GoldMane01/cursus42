@@ -10,7 +10,7 @@ int	main(int argc, char *argv[], char *envp[])
 	commands = get_commands(argv, argc);
 	tempfd = create_temp_file();
 	cmdnum = 0;
-	while (commands && commands[cmdnum])
+	while (commands[cmdnum])
 	{
 		execute_command(commands, cmdnum, argv[1], envp);
 		cmdnum++;

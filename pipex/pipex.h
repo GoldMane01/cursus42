@@ -32,7 +32,7 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 char	**find_paths(char *envp[]);
 char	*get_path(char *path, char *command);
 int		check_access(char *path, char *command);
-void	write_temp(int link[], char *path, char *arg);
+void	write_temp(int link[], char *path, char **arg);
 char	*get_path(char *path, char *command);
 char	**find_paths(char *envp[]);
 char	*cmdname(char *s, char *envp[]);
