@@ -1,36 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dramos-n <dramos-n@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/22 15:54:42 by dramos-n          #+#    #+#             */
-/*   Updated: 2024/02/22 15:54:45 by dramos-n         ###   ########.fr       */
+/*   Created: 2023/12/03 13:41:49 by dramos-n          #+#    #+#             */
+/*   Updated: 2023/12/03 13:41:50 by dramos-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../push_swap.h"
+#include "../checker_bonus.h"
 
-char	**parse_input(char *argv[], int argc)
+char	*ft_strtrim(char const *s1, char const *set)
 {
-	char	*join;
-	char	**nums;
+	char	*ptr;
 	int		i;
+	int		j;
 
-	nums = NULL;
-	join = malloc(sizeof(char) * 2);
-	if (!join)
+	i = 0;
+	j = ft_strlen(s1) - 1;
+	if (!s1 || !set)
 		return (NULL);
-	join[0] = ' ';
-	join[1] = '\0';
-	i = 1;
-	while (i < argc)
-	{
-		join = ft_strjoin(join, argv[i]);
-		ft_strlcat(join, " ", ft_strlen(join) + ft_strlen(" ") + 1);
+	while (ft_strchr(set, s1[i]) && i <= j)
 		i++;
-	}
-	nums = ft_split(join, ' ');
-	return (nums);
+	if (i > j)
+		return (ft_strdup(s1 + j + 1));
+	while (ft_strchr(set, s1[j]) && j >= 0)
+		j--;
+	ptr = (char *)malloc(sizeof(char) * (j - i + 2));
+	if (!ptr)
+		return (NULL);
+	s1 += i;
+	ft_strlcpy(ptr, s1, j - i + 2);
+	return (ptr);
 }

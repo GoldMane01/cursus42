@@ -1,36 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dramos-n <dramos-n@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/22 15:54:42 by dramos-n          #+#    #+#             */
-/*   Updated: 2024/02/22 15:54:45 by dramos-n         ###   ########.fr       */
+/*   Created: 2023/11/29 12:16:46 by dramos-n          #+#    #+#             */
+/*   Updated: 2023/11/29 12:16:47 by dramos-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../push_swap.h"
+#include "../checker_bonus.h"
 
-char	**parse_input(char *argv[], int argc)
+int	ft_atoi(const char *str)
 {
-	char	*join;
-	char	**nums;
-	int		i;
+	int	sign;
+	int	res;
 
-	nums = NULL;
-	join = malloc(sizeof(char) * 2);
-	if (!join)
-		return (NULL);
-	join[0] = ' ';
-	join[1] = '\0';
-	i = 1;
-	while (i < argc)
+	res = 0;
+	sign = 1;
+	while (*str != '\0')
 	{
-		join = ft_strjoin(join, argv[i]);
-		ft_strlcat(join, " ", ft_strlen(join) + ft_strlen(" ") + 1);
-		i++;
+		if ((*str > 8 && *str < 14) || *str == 32)
+			str++;
+		else
+			break ;
 	}
-	nums = ft_split(join, ' ');
-	return (nums);
+	if (*str == '-' || *str == '+')
+	{
+		if (*str == '-')
+			sign = -sign;
+		str++;
+	}
+	while (*str >= '0' && *str <= '9')
+	{
+		res = (res * 10) + (*str - '0');
+		str++;
+	}
+	return (res * sign);
 }

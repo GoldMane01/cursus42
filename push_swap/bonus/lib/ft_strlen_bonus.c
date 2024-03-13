@@ -1,36 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dramos-n <dramos-n@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/22 15:54:42 by dramos-n          #+#    #+#             */
-/*   Updated: 2024/02/22 15:54:45 by dramos-n         ###   ########.fr       */
+/*   Created: 2023/11/28 13:06:17 by dramos-n          #+#    #+#             */
+/*   Updated: 2023/11/28 13:06:18 by dramos-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../push_swap.h"
+#include "../checker_bonus.h"
 
-char	**parse_input(char *argv[], int argc)
+int	ft_strlen(const char *s)
 {
-	char	*join;
-	char	**nums;
-	int		i;
+	int	i;
 
-	nums = NULL;
-	join = malloc(sizeof(char) * 2);
-	if (!join)
-		return (NULL);
-	join[0] = ' ';
-	join[1] = '\0';
-	i = 1;
-	while (i < argc)
-	{
-		join = ft_strjoin(join, argv[i]);
-		ft_strlcat(join, " ", ft_strlen(join) + ft_strlen(" ") + 1);
+	if (!s)
+		return (0);
+	i = 0;
+	while (s[i] != '\0')
 		i++;
-	}
-	nums = ft_split(join, ' ');
-	return (nums);
+	return (i);
 }

@@ -1,36 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dramos-n <dramos-n@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/22 15:54:42 by dramos-n          #+#    #+#             */
-/*   Updated: 2024/02/22 15:54:45 by dramos-n         ###   ########.fr       */
+/*   Created: 2023/12/11 16:55:59 by dramos-n          #+#    #+#             */
+/*   Updated: 2023/12/11 16:56:00 by dramos-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../push_swap.h"
+#include "../checker_bonus.h"
 
-char	**parse_input(char *argv[], int argc)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	char	*join;
-	char	**nums;
-	int		i;
+	t_list	*node;
 
-	nums = NULL;
-	join = malloc(sizeof(char) * 2);
-	if (!join)
-		return (NULL);
-	join[0] = ' ';
-	join[1] = '\0';
-	i = 1;
-	while (i < argc)
+	if (!*lst)
+		*lst = new;
+	else
 	{
-		join = ft_strjoin(join, argv[i]);
-		ft_strlcat(join, " ", ft_strlen(join) + ft_strlen(" ") + 1);
-		i++;
+		node = ft_lstlast(*lst);
+		node->next = new;
+		new->next = NULL;
 	}
-	nums = ft_split(join, ' ');
-	return (nums);
 }

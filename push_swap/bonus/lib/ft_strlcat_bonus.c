@@ -1,36 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dramos-n <dramos-n@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/22 15:54:42 by dramos-n          #+#    #+#             */
-/*   Updated: 2024/02/22 15:54:45 by dramos-n         ###   ########.fr       */
+/*   Created: 2023/11/30 11:43:45 by dramos-n          #+#    #+#             */
+/*   Updated: 2023/11/30 11:43:58 by dramos-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../push_swap.h"
+#include "../checker_bonus.h"
 
-char	**parse_input(char *argv[], int argc)
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
-	char	*join;
-	char	**nums;
+	size_t	dlen;
+	size_t	slen;
 	int		i;
 
-	nums = NULL;
-	join = malloc(sizeof(char) * 2);
-	if (!join)
-		return (NULL);
-	join[0] = ' ';
-	join[1] = '\0';
-	i = 1;
-	while (i < argc)
+	i = 0;
+	dlen = 0;
+	slen = 0;
+	while (dst[dlen] != '\0')
+		dlen++;
+	while (src[slen] != '\0')
+		slen++;
+	if (dstsize <= dlen)
+		slen += dstsize;
+	else
+		slen += dlen;
+	while (src[i] != '\0' && (dlen + 1) < dstsize)
 	{
-		join = ft_strjoin(join, argv[i]);
-		ft_strlcat(join, " ", ft_strlen(join) + ft_strlen(" ") + 1);
+		dst[dlen] = src[i];
+		dlen++;
 		i++;
 	}
-	nums = ft_split(join, ' ');
-	return (nums);
+	dst[dlen] = '\0';
+	return (slen);
 }

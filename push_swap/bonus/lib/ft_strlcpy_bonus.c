@@ -1,36 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dramos-n <dramos-n@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/22 15:54:42 by dramos-n          #+#    #+#             */
-/*   Updated: 2024/02/22 15:54:45 by dramos-n         ###   ########.fr       */
+/*   Created: 2023/11/30 11:54:17 by dramos-n          #+#    #+#             */
+/*   Updated: 2023/11/30 11:54:18 by dramos-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../push_swap.h"
+#include "../checker_bonus.h"
 
-char	**parse_input(char *argv[], int argc)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	char	*join;
-	char	**nums;
 	int		i;
+	size_t	count;
 
-	nums = NULL;
-	join = malloc(sizeof(char) * 2);
-	if (!join)
-		return (NULL);
-	join[0] = ' ';
-	join[1] = '\0';
-	i = 1;
-	while (i < argc)
-	{
-		join = ft_strjoin(join, argv[i]);
-		ft_strlcat(join, " ", ft_strlen(join) + ft_strlen(" ") + 1);
+	i = 0;
+	count = 0;
+	while (src && src[i] != '\0')
 		i++;
+	if (dstsize <= 0)
+		return (i);
+	while (src && src[count] != '\0' && count < (dstsize - 1))
+	{
+		dst[count] = src[count];
+		count++;
 	}
-	nums = ft_split(join, ' ');
-	return (nums);
+	if (dstsize)
+		dst[count] = '\0';
+	return (i);
 }
