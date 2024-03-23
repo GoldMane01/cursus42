@@ -15,15 +15,23 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdbool.h>
+# include <limits.h>
+# include <stdio.h>
 
 typedef struct s_list
 {
 	int				num;
 	int				pos;
+	int				price;
+	bool			above_median;
+	bool			cheapest;
+	struct s_list	*target;
+	struct s_list	*prev;
 	struct s_list	*next;
 }					t_list;
 
-t_list	*ft_lstnew(int number, int position);
+t_list	*ft_lstnew(int number);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_lstadd_front(t_list **lst, t_list *new);
 t_list	*ft_lstlast(t_list *lst);
@@ -33,10 +41,10 @@ int		check_input(char **nums);
 void	op_ss(t_list **stka, t_list **stkb);
 void	op_rr(t_list **stka, t_list **stkb);
 void	op_rrr(t_list **stka, t_list **stkb);
-void	op_swap(t_list **head, int c);
-void	op_push(t_list **pull, t_list **push, int c);
-void	op_rev_rotate(t_list **head, int c);
-void	op_rotate(t_list **head, int c);
+void	op_swap(t_list **head, int c, int prnt);
+void	op_push(t_list **pull, t_list **push, int c, int prnt);
+void	op_rev_rotate(t_list **head, int c, int prnt);
+void	op_rotate(t_list **head, int c, int prnt);
 void	position(t_list **stka);
 void	turn_binary(t_list **stka);
 void	iter_digit(t_list **stka, t_list **stkb, int power);
@@ -53,5 +61,13 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	**parse_input(char *argv[], int argc);
 char	**ft_split(char const *s, char c);
 char	*ft_substr(char const *s, int start, int len);
+void	set_positions(t_list **stk);
+void	set_target(t_list *stka, t_list *stkb);
+void	push_swap(t_list **stka, t_list **stkb);
+t_list	*find_smallest(t_list *stk);
+void	set_price(t_list *stka, t_list *stkb);
+void	set_cheapest(t_list *stkb);
+void	refresh_nodes(t_list *stka, t_list *stkb);
+void	move_nodes(t_list **stka, t_list **stkb);
 
 #endif

@@ -18,9 +18,7 @@ void	init_stack(char *argv[], t_list **stka)
 
 	i = -1;
 	while (argv[++i])
-		ft_lstadd_back(stka, ft_lstnew(ft_atoi(argv[i]), -1));
-	position(stka);
-	turn_binary(stka);
+		ft_lstadd_back(stka, ft_lstnew(ft_atoi(argv[i])));
 }
 
 int	main(int argc, char *argv[])
@@ -35,11 +33,31 @@ int	main(int argc, char *argv[])
 	if (check_input(nums) == -1)
 		return (0);
 	init_stack(nums, &stka);
+
+	/*
+	t_list *node = stka;
+	while(node)
+	{
+		printf("%d,\t%d\n", node->num, node->pos);
+		node = node->next;
+	}
+
+	printf("--------------------------------------------------\n");
+
+	node = find_smallest(stka);
+	printf("%d\n", node->num);
+	/*t_list *node2 = stkb;
+	while(node2)
+	{
+		printf("%d,\t%d\n", node2->num, node2->pos);
+		node2 = node2->next;
+	}*/
+
 	if (ft_lstsize(stka) == 2)
 		sort_two(&stka);
 	else if (ft_lstsize(stka) == 3)
 		sort_three(&stka);
 	else
-		radix_sort(&stka, &stkb);
+		push_swap(&stka, &stkb);
 	return (0);
 }

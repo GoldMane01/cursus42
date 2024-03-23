@@ -12,7 +12,7 @@
 
 #include "../push_swap.h"
 
-t_list	*ft_lstnew(int number, int position)
+t_list	*ft_lstnew(int number)
 {
 	t_list	*node;
 
@@ -20,7 +20,6 @@ t_list	*ft_lstnew(int number, int position)
 	if (node)
 	{
 		node->num = number;
-		node->pos = position;
 		node->next = NULL;
 	}
 	return (node);

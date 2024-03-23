@@ -35,6 +35,8 @@ int	check_repeats(char **nums)
 
 int	check_chars(char *s)
 {
+	if (*s == '-')
+		s++;
 	while (*s)
 	{
 		if (*s >= '0' && *s <= '9')

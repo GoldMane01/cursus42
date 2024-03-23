@@ -32,10 +32,10 @@ SRCS        :=      lib/ft_atoi.c \
                           ops/swaps.c \
                           push_swap.c \
                           utils/errors.c \
-                          utils/parse.c \
                           utils/position.c \
                           utils/sort.c \
                           utils/utils.c \
+                          utils/refresh.c \
 
 SRCBONUS	:=		bonus/checker_bonus.c \
 						  bonus/lib/ft_atoi_bonus.c \
