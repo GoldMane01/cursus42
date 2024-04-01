@@ -73,46 +73,23 @@ t_list	*get_cheapest(t_list *stk)
 			return (stk);
 		stk = stk->next;
 	}
+	return (NULL);
 }
 
-void	rotate_both(t_list **stka, t_list **stkb, t_list *cheap)
+t_list	*find_smallest(t_list *stk)
 {
-	while (*stka != cheap->target && *stkb != cheap)
-		op_rr(stka, stkb);
-	set_positions(stka);
-	set_positions(stkb);
-}
+	t_list	*node;
+	int		smallest;
 
-void	reverse_rotate_both(t_list **stka, t_list **stkb, t_list *cheap)
-{
-	while (*stka != cheap->target && *stkb != cheap)
-		op_rrr(stka, stkb);
-	set_positions(stka);
-	set_positions(stkb);
-}
-
-void	finish_rotation(t_list **stk, t_list *top, char stk_char)
-{
-	while (*stk != top)
+	smallest = INT_MAX;
+	while (stk)
 	{
-		if (top->above_median)
-			op_rotate(stk, stk_char, 1);
-		else
-			op_rev_rotate(stk, stk_char, 1);
+		if (stk->num < smallest)
+		{
+			smallest = stk->num;
+			node = stk;
+		}
+		stk = stk->next;
 	}
-}
-
-void	move_nodes(t_list **stka, t_list **stkb)
-{
-	t_list	*cheap;
-
-	cheap = get_cheapest(*stkb);
-	if (cheap->above_median && cheap->target->above_median)
-		rotate_both(stka, stkb, cheap);
-	else if (!(cheap->above_median) && !(cheap->target->above_median))
-		reverse_rotate_both(stka, stkb, cheap);
-	finish_rotation(stkb, cheap, 'b');
-	finish_rotation(stka, cheap->target, 'a');
-	op_push(stka, stkb, 'a', 1);
-	
+	return (node);
 }

@@ -69,5 +69,9 @@ void	set_price(t_list *stka, t_list *stkb);
 void	set_cheapest(t_list *stkb);
 void	refresh_nodes(t_list *stka, t_list *stkb);
 void	move_nodes(t_list **stka, t_list **stkb);
+void	finish_rotation(t_list **stk, t_list *top, char stk_char);
+void	reverse_rotate_both(t_list **stka, t_list **stkb, t_list *cheap);
+void	rotate_both(t_list **stka, t_list **stkb, t_list *cheap);
+t_list	*get_cheapest(t_list *stk);
 
 #endif

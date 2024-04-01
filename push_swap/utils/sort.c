@@ -52,7 +52,12 @@ void	sort_three(t_list **stk)
 
 void	sort_five(t_list **stka, t_list **stkb)
 {
-	op_ss(stka, stkb);
+	while (ft_lstsize(*stka) > 3)
+	{
+		refresh_nodes(*stka, *stkb);
+		finish_rotation(stka, find_smallest(*stka), 'a');
+		op_push(stkb, stka, 'b', 1);
+	}
 }
 
 void	push_swap(t_list **stka, t_list **stkb)
@@ -82,76 +87,4 @@ void	push_swap(t_list **stka, t_list **stkb)
 	else
 		while (*stka != smallest)
 			op_rev_rotate(stka, 'a', 1);
-
-
-	/*set_positions(stka);
-	set_positions(stkb);
-	set_price(*stka, *stkb);
-	t_list *node = *stkb;
-	while(node)
-	{
-		printf("%d,\t%d,\t%d\n", node->num, node->pos, node->price);
-		node = node->next;
-	}*/
-
-}
-
-void	set_price(t_list *stka, t_list *stkb)
-{
-	while (stkb)
-	{
-		stkb->price = stkb->pos;
-		if (!(stkb->above_median))
-			stkb->price = ft_lstsize(stkb) - (stkb->pos);
-		if (stkb->target->above_median)
-			stkb->price += stkb->target->pos;
-		else
-			stkb->price += ft_lstsize(stka) - (stkb->target->pos);
-		stkb = stkb->next;
-	}
-}
-
-t_list	*find_smallest(t_list *stk)
-{
-	t_list	*node;
-	int		smallest;
-
-	smallest = INT_MAX;
-	while (stk)
-	{
-		if (stk->num < smallest)
-		{
-			smallest = stk->num;
-			node = stk;
-		}
-		stk = stk->next;
-	}
-	return (node);
-}
-
-void	set_target(t_list *stka, t_list *stkb)
-{
-	t_list	*current;
-	t_list	*ntarget;
-	int		max;
-
-	while (stkb)
-	{
-		max = INT_MAX;
-		current = stka;
-		while (current)
-		{
-			if (current->num > stkb->num && current->num < max)
-			{
-				max = current->num;
-				ntarget = current;
-			}
-			current = current->next;
-		}
-		if (INT_MAX == max)
-			stkb->target = find_smallest(stka);
-		else
-			stkb->target = ntarget;
-		stkb = stkb->next;
-	}
 }

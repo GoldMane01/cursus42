@@ -12,23 +12,4 @@
 
 #include "../push_swap.h"
 
-void	set_positions(t_list **stk)
-{
-	t_list	*node;
-	int		i;
-	int		median;
 
-	i = 0;
-	median = ft_lstsize(*stk) / 2;
-	node = *stk;
-	while (node)
-	{
-		node->pos = i;
-		if (i <= median)
-			node->above_median = true;
-		else
-			node->above_median = false;
-		i++;
-		node = node->next;
-	}
-}

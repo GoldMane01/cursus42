@@ -33,26 +33,6 @@ int	main(int argc, char *argv[])
 	if (check_input(nums) == -1)
 		return (0);
 	init_stack(nums, &stka);
-
-	/*
-	t_list *node = stka;
-	while(node)
-	{
-		printf("%d,\t%d\n", node->num, node->pos);
-		node = node->next;
-	}
-
-	printf("--------------------------------------------------\n");
-
-	node = find_smallest(stka);
-	printf("%d\n", node->num);
-	/*t_list *node2 = stkb;
-	while(node2)
-	{
-		printf("%d,\t%d\n", node2->num, node2->pos);
-		node2 = node2->next;
-	}*/
-
 	if (ft_lstsize(stka) == 2)
 		sort_two(&stka);
 	else if (ft_lstsize(stka) == 3)

@@ -10,7 +10,7 @@
 NAME        := push_swap
 NAMEBONUS	:= checker
 CC        := gcc
-FLAGS    := #-Wall -Wextra -Werror 
+FLAGS    := -Wall -Wextra -Werror 
 ################################################################################
 #                                 PROGRAM'S SRCS                               #
 ################################################################################
@@ -34,6 +34,7 @@ SRCS        :=      lib/ft_atoi.c \
                           utils/errors.c \
                           utils/position.c \
                           utils/sort.c \
+                          utils/sortutils.c \
                           utils/utils.c \
                           utils/refresh.c \
 
