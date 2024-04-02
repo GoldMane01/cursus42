@@ -27,7 +27,6 @@ typedef struct s_list
 	bool			above_median;
 	bool			cheapest;
 	struct s_list	*target;
-	struct s_list	*prev;
 	struct s_list	*next;
 }					t_list;
 
