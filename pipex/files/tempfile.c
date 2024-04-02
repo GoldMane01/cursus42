@@ -15,7 +15,7 @@ void	write_temp(int link[], char *path, char **arg)
 	}
 	dup2(fd, STDOUT_FILENO);
 	close(link[0]);
-	if (execve(path, cmdargs(arg), NULL) == -1)
+	if (execve(path, arg, NULL) == -1)
 	{
 		perror("Command could not be executed");
 		exit(1);
