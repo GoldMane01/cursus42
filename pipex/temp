@@ -1,13 +1,14 @@
-Makefile
-commands
-files
-input
-lib
-output
-path
-pipex
-pipex.c
-pipex.h
-pipex.o
-strings
-temp
+total 152
+-rw-r--r--   1 dramos-n  2023_malaga   2314 Mar 11 17:20 Makefile
+drwxr-xr-x   6 dramos-n  2023_malaga    204 Apr  3 16:18 commands
+drwxr-xr-x   6 dramos-n  2023_malaga    204 Apr  3 16:12 files
+-rw-r--r--   1 dramos-n  2023_malaga     17 Mar 11 16:56 input
+drwxr-xr-x  14 dramos-n  2023_malaga    476 Apr  3 16:12 lib
+-rw-r--r--   1 dramos-n  2023_malaga     25 Apr  3 16:18 output
+drwxr-xr-x   6 dramos-n  2023_malaga    204 Apr  3 16:12 path
+-rwxr-xr-x   1 dramos-n  2023_malaga  51360 Apr  3 16:18 pipex
+-rw-r--r--   1 dramos-n  2023_malaga    399 Apr  3 15:47 pipex.c
+-rw-r--r--   1 dramos-n  2023_malaga   2245 Apr  3 15:40 pipex.h
+-rw-r--r--   1 dramos-n  2023_malaga   1140 Apr  3 16:12 pipex.o
+drwxr-xr-x   4 dramos-n  2023_malaga    136 Apr  3 16:12 strings
+-rw-r--r--   1 dramos-n  2023_malaga      0 Apr  3 16:18 temp

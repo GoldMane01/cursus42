@@ -83,5 +83,7 @@ void	execute_command(int fd[], char **cmds, int cmdn,  char *env[], char *out)
 		else
 			write_output(fd, cmdname(cmds[cmdn], env), split, out);
 	}
-	//waitpid(pid, NULL, 0);
+	close(fd[0]);
+	close(fd[1]);
+	waitpid(pid, NULL, 0);
 }
