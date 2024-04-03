@@ -1,1 +1,13 @@
-0
+Makefile
+commands
+files
+input
+lib
+output
+path
+pipex
+pipex.c
+pipex.h
+pipex.o
+strings
+temp

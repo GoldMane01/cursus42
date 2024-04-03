@@ -14,20 +14,20 @@ FLAGS    := #-Wall -Wextra -Werror
 #                                 PROGRAM'S SRCS                               #
 ################################################################################
 
-SRCS        :=      files/tempfile.c \
-                          strings/commands.c \
-                          commands/exec.c \
+SRCS        :=      commands/exec.c \
                           commands/last.c \
-                          commands/arguments.c \
-                          pipex.c \
-                          path/pathfind.c \
-                          path/pathget.c \
-                          lib/ft_strnstr.c \
+                          files/output.c \
+                          files/tempfile.c \
                           lib/ft_split.c \
-                          lib/ft_substr.c \
                           lib/ft_strlcat.c \
                           lib/ft_strlcpy.c \
                           lib/ft_strlen.c \
+                          lib/ft_strnstr.c \
+                          lib/ft_substr.c \
+                          path/pathfind.c \
+                          path/pathget.c \
+                          pipex.c \
+                          strings/commands.c \
                           
 OBJS        := $(SRCS:.c=.o)
 

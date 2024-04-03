@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dramos-n <dramos-n@student.42malaga.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/11 17:07:40 by dramos-n          #+#    #+#             */
+/*   Updated: 2024/03/11 17:07:41 by dramos-n         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../pipex.h"
 
 void	read_temp(int link[])
@@ -16,10 +28,9 @@ void	read_temp(int link[])
 	}
 	fd = open("temp", O_RDONLY);
 	bytes = read(fd, buffer, 1024);
-	buffer[1024] = '\0';
+	buffer[bytes] = '\0';
 	write(STDOUT_FILENO, buffer, bytes);
 	close(link[1]);
-	exit(1);
 }
 
 void	read_input(int link[], char *infile)
@@ -40,53 +51,37 @@ void	read_input(int link[], char *infile)
 	buffer[bytes] = '\0';
 	write(STDOUT_FILENO, buffer, bytes);
 	close(link[1]);
-	exit(1);
 }
 
-char	**awk_split(char *command)
+void	read_file(char *infile, int cmdnum, int fd[])
 {
-	char	**awk;
-
-	awk = malloc(sizeof(char *) * 3);
-	if (!awk)
-		return (NULL);
-	awk[2] = NULL;
-	awk[0] = malloc(sizeof(char) * 4);
-	if (!awk[0])
-		return (NULL);
-	awk[0] = "awk\0";
-	command+=5;
-	awk[1] = malloc(sizeof(char) * (ft_strlen(command) + 1));
-	if (!awk[1])
-		return (NULL);
-	ft_strlcpy(awk[1], command, ft_strlen(command));
-	return (awk);
-}
-
-void	execute_command(char **commands, int cmdnum, char *infile, char *envp[])
-{
-	int	fd[2];
 	int	pid;
 
-	if (pipe(fd) == -1)
-		exit(1);
 	pid = fork();
 	if (pid == 0)
 	{
-		//if (cmdnum == 0)
-			//read_input(fd, infile);
-		//else
-			//read_temp(fd);
-		if (!last_command(commands, cmdnum))
-		{
-			if (ft_strnstr(commands[cmdnum], "awk", 3))
-				write_temp(fd, cmdname(commands[cmdnum], envp), awk_split(commands[cmdnum]));
-			else
-				write_temp(fd, cmdname(commands[cmdnum], envp), ft_split(commands[cmdnum], ' '));
-			exit(1);
-		}
+		if (cmdnum == 0)
+			read_input(fd, infile);
+		else
+			read_temp(fd);
+		exit(1);
 	}
-	close(fd[0]);
-	close(fd[1]);
 	waitpid(pid, NULL, 0);
+}
+
+void	execute_command(int fd[], char **cmds, int cmdn,  char *env[], char *out)
+{
+	int		pid;
+	char	**split;
+
+	pid = fork();
+	if (pid == 0)
+	{
+		split = ft_split(cmds[cmdn], ' ');
+		if (!last_command(cmds, cmdn))
+			write_temp(fd, cmdname(cmds[cmdn], env), split);
+		else
+			write_output(fd, cmdname(cmds[cmdn], env), split, out);
+	}
+	//waitpid(pid, NULL, 0);
 }
