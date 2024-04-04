@@ -18,5 +18,6 @@ int	main(int argc, char *argv[], char *envp[])
 		execute_command(fd, commands, cmdnum, envp, argv[argc - 1]);
 		cmdnum++;
 	}
+	unlink("temp");
 	return (0);
 }

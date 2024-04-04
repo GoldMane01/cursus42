@@ -77,7 +77,10 @@ void	execute_command(int fd[], char **cmds, int cmdn,  char *env[], char *out)
 	pid = fork();
 	if (pid == 0)
 	{
-		split = ft_split(cmds[cmdn], ' ');
+		if (ft_strnstr(cmds[cmdn], "awk", 3))
+			split = awk_split(cmds[cmdn]);
+		else
+			split = ft_split(cmds[cmdn], ' ');
 		if (!last_command(cmds, cmdn))
 			write_temp(fd, cmdname(cmds[cmdn], env), split);
 		else
