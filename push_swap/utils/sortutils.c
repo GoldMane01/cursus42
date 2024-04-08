@@ -40,3 +40,23 @@ void	finish_rotation(t_list **stk, t_list *top, char stk_char)
 			op_rev_rotate(stk, stk_char, 1);
 	}
 }
+
+t_list	*find_highest(t_list *stack)
+{
+	int				highest;
+	t_list			*highest_node;
+
+	if (NULL == stack)
+		return (NULL);
+	highest = INT_MIN;
+	while (stack)
+	{
+		if (stack->num > highest)
+		{
+			highest = stack->num;
+			highest_node = stack;
+		}
+		stack = stack->next;
+	}
+	return (highest_node);
+}

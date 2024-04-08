@@ -23,31 +23,15 @@ void	sort_two(t_list **stk)
 
 void	sort_three(t_list **stk)
 {
-	int	first;
-	int	second;
-	int	third;
+	t_list	*highest;
 
-	first = (*stk)->num;
-	second = (*stk)->next->num;
-	third = (*stk)->next->next->num;
-	if (sorted(stk) != -1)
-		return ;
-	if (first < second && first < third)
-	{
-		op_swap(stk, 'a', 1);
+	highest = find_highest(*stk);
+	if (*stk == highest)
 		op_rotate(stk, 'a', 1);
-	}
-	if (first > second && first < third)
-		op_swap(stk, 'a', 1);
-	if (first < second && first > third)
+	else if ((*stk)->next == highest)
 		op_rev_rotate(stk, 'a', 1);
-	if (first > second && second < third && first > third)
-		op_rotate(stk, 'a', 1);
-	if (first > second && second > third)
-	{
+	if ((*stk)->num > (*stk)->next->num)
 		op_swap(stk, 'a', 1);
-		op_rev_rotate(stk, 'a', 1);
-	}
 }
 
 void	sort_five(t_list **stka, t_list **stkb)

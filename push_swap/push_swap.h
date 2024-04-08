@@ -36,7 +36,7 @@ void	ft_lstadd_front(t_list **lst, t_list *new);
 t_list	*ft_lstlast(t_list *lst);
 int		ft_lstsize(t_list *lst);
 int		ft_atoi(const char *str);
-int		check_input(char **nums);
+int		check_input(char **nums, t_list **stka);
 void	op_ss(t_list **stka, t_list **stkb);
 void	op_rr(t_list **stka, t_list **stkb);
 void	op_rrr(t_list **stka, t_list **stkb);
@@ -72,5 +72,6 @@ void	finish_rotation(t_list **stk, t_list *top, char stk_char);
 void	reverse_rotate_both(t_list **stka, t_list **stkb, t_list *cheap);
 void	rotate_both(t_list **stka, t_list **stkb, t_list *cheap);
 t_list	*get_cheapest(t_list *stk);
+t_list	*find_highest(t_list *stack);
 
 #endif

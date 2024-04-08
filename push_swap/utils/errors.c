@@ -12,23 +12,24 @@
 
 #include "../push_swap.h"
 
-int	check_repeats(char **nums)
+int	check_repeats(t_list **stka)
 {
-	int	i;
-	int	j;
+	t_list	*head;
+	t_list	*node;
 
-	i = 0;
-	j = 0;
-	while (nums[i] && nums[i + 1])
+	head = *stka;
+	node = (*stka)->next;
+	while(head)
 	{
-		j = i + 1;
-		while (nums[j])
+		while (node)
 		{
-			if (ft_strncmp(nums[i], nums[j], 10) == 0)
+			if (head->num == node->num)
 				return (-1);
-			j++;
+			node = node->next;
 		}
-		i++;
+		head = head->next;
+		if (head != NULL)
+			node = head->next;
 	}
 	return (1);
 }
@@ -59,27 +60,27 @@ int	check_count(char **nums)
 	return (i);
 }
 
-int	check_input(char **nums)
+int	check_input(char **nums, t_list **stka)
 {
 	int	i;
 
 	i = -1;
 	if (check_count(nums) < 2)
 	{
-		write(1, "Too few arguments", 17);
+		write(2, "Error\n", 6);
 		return (-1);
 	}
 	while (nums[++i])
 	{
 		if (check_chars(nums[i]) == -1)
 		{
-			write(1, "Bad input", 9);
+			write(2, "Error\n", 6);
 			return (-1);
 		}
 	}
-	if (check_repeats(nums) == -1)
+	if (check_repeats(stka) == -1)
 	{
-		write(1, "Duplicate numbers", 17);
+		write(2, "Error\n", 6);
 		return (-1);
 	}
 	return (1);

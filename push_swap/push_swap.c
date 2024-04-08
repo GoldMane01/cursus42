@@ -30,9 +30,9 @@ int	main(int argc, char *argv[])
 	stka = NULL;
 	stkb = NULL;
 	nums = parse_input(argv, argc);
-	if (check_input(nums) == -1)
-		return (0);
 	init_stack(nums, &stka);
+	if (check_input(nums, &stka) == -1)
+		return (0);
 	if (ft_lstsize(stka) == 2)
 		sort_two(&stka);
 	else if (ft_lstsize(stka) == 3)
