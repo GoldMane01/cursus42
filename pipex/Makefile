@@ -28,6 +28,7 @@ SRCS        :=      commands/exec.c \
                           path/pathget.c \
                           pipex.c \
                           strings/commands.c \
+						  strings/awkstring.c \
                           
 OBJS        := $(SRCS:.c=.o)
 

@@ -12,6 +12,19 @@
 
 #include "push_swap.h"
 
+void	free_stacks(t_list **stka, t_list **stkb)
+{
+	t_list	*aux;
+
+	while(*stka)
+	{
+		aux = (*stka)->next;
+		free(*stka);
+		*stka = aux;
+	}
+	free(*stkb);
+}
+
 void	init_stack(char *argv[], t_list **stka)
 {
 	int		i;
@@ -33,11 +46,15 @@ int	main(int argc, char *argv[])
 	init_stack(nums, &stka);
 	if (check_input(nums, &stka) == -1)
 		return (0);
-	if (ft_lstsize(stka) == 2)
-		sort_two(&stka);
-	else if (ft_lstsize(stka) == 3)
-		sort_three(&stka);
-	else
-		push_swap(&stka, &stkb);
+	if (sorted(&stka) == -1)
+	{
+		if (ft_lstsize(stka) == 2)
+			sort_two(&stka);
+		else if (ft_lstsize(stka) == 3)
+			sort_three(&stka);
+		else
+			push_swap(&stka, &stkb);
+	}
+	free_stacks(&stka, &stkb);
 	return (0);
 }
