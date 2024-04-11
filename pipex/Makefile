@@ -9,26 +9,23 @@
 
 NAME        := pipex
 CC        := gcc
-FLAGS    := #-Wall -Wextra -Werror 
+FLAGS    := -Wall -Wextra -Werror 
 ################################################################################
 #                                 PROGRAM'S SRCS                               #
 ################################################################################
 
-SRCS        :=      commands/exec.c \
-                          commands/last.c \
-                          files/output.c \
-                          files/tempfile.c \
+SRCS        :=      files/reads.c \
+                          files/writes.c \
+                          pipex.c \
+                          utils/paths.c \
+                          utils/utils.c \
+                          utils/commands.c \
+                          lib/ft_strnstr.c \
                           lib/ft_split.c \
+                          lib/ft_substr.c \
                           lib/ft_strlcat.c \
                           lib/ft_strlcpy.c \
                           lib/ft_strlen.c \
-                          lib/ft_strnstr.c \
-                          lib/ft_substr.c \
-                          path/pathfind.c \
-                          path/pathget.c \
-                          pipex.c \
-                          strings/commands.c \
-						  strings/awkstring.c \
                           
 OBJS        := $(SRCS:.c=.o)
 

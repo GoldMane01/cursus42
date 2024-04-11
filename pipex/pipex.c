@@ -1,32 +1,45 @@
 #include "pipex.h"
 
-int	main(int argc, char *argv[], char *envp[])
+void	execute_command(char **cmds, int cmdn, char **argv, char **envp)
 {
-	char	**commands;
-	int		cmdnum;
-	int		tempfd;
 	int		fd[2];
 	int		pid;
+	char	**split;
+	char	*out;
 
-	commands = get_commands(argv, argc);
-	tempfd = create_temp_file();
-	cmdnum = 0;
-	while (commands[cmdnum])
+	if (pipe(fd) == -1)
+		exit(1);
+	pid = fork();
+	if (pid == 0)
 	{
-		if (pipe(fd) == -1)
-			exit(1);
-		pid = fork();
-		if (pid == 0)
-		{
-			read_file(argv[1], cmdnum, fd);
-			execute_command(fd, commands, cmdnum, envp, argv[argc - 1]);
-			close(fd[0]);
-			close(fd[1]);
-		}
-		cmdnum++;
-		close(fd[0]);
-		close(fd[1]);
-		waitpid(pid, NULL, 0);
+		out = argv[argv_size(argv) - 1];
+		read_file(argv[1], cmdn, fd);
+		if (ft_strnstr(cmds[cmdn], "awk", 3))
+			split = awk_split(cmds[cmdn]);
+		else
+			split = ft_split(cmds[cmdn], ' ');
+		if (!last_command(cmds, cmdn))
+			write_temp(fd, cmdname(cmds[cmdn], envp), split);
+		else
+			write_output(fd, cmdname(cmds[cmdn], envp), split, out);
+	}
+	close(fd[0]);
+	close(fd[1]);
+	waitpid(pid, NULL, 0);
+}
+
+int	main(int argc, char *argv[], char *envp[])
+{
+	char	**cmds;
+	int		cmdn;
+
+	cmds = get_commands(argv, argc);
+	create_temp_file();
+	cmdn = 0;
+	while (cmds[cmdn])
+	{
+		execute_command(cmds, cmdn, argv, envp);
+		cmdn++;
 	}
 	unlink("temp");
 	return (0);
