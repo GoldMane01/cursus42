@@ -1,1 +1,4 @@
-      4      36     230
+-rwxrwxr-x 1 dramos-n dramos-n 22032 Apr 11 15:34 pipex
+-rw-rw-r-- 1 dramos-n dramos-n   927 Apr 11 15:34 pipex.c
+-rw-rw-r-- 1 dramos-n dramos-n  2186 Apr 11 15:27 pipex.h
+-rw-rw-r-- 1 dramos-n dramos-n  3392 Apr 11 15:34 pipex.o

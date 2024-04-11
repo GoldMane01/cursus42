@@ -36,6 +36,11 @@ int	main(int argc, char *argv[], char *envp[])
 	cmds = get_commands(argv, argc);
 	create_temp_file();
 	cmdn = 0;
+	if (argc < 5)
+	{
+		write(2, "Bad input\n", 10);
+		return (1);
+	}
 	while (cmds[cmdn])
 	{
 		execute_command(cmds, cmdn, argv, envp);
