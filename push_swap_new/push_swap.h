@@ -72,4 +72,20 @@ void	rra(t_stack **a, int show);
 void	rrb(t_stack **b, int show);
 void	rrr(t_stack **a, t_stack **b, int show);
 
+//Tiny Sort
+void	tiny_sort(t_stack **a);
+void	push_swap(t_stack **a, t_stack **b);
+
+//Utils
+t_stack	*find_highest(t_stack *a);
+t_stack	*find_smallest(t_stack *a);
+int		sorted(t_stack **stk);
+
+//Setters
+void	set_targets(t_stack *a, t_stack *b);
+void	set_positions(t_stack *stk);
+void	set_prices(t_stack *a, t_stack *b);
+void	set_cheapest(t_stack *b);
+void	set_all(t_stack *a, t_stack *b);
+
 #endif
