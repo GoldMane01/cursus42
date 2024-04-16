@@ -24,6 +24,7 @@ SRCS        :=      commands/reverse.c \
                           utils/tinysort.c \
                           utils/utils.c \
                           utils/setters.c \
+                          utils/sort.c \
                           lib/ft_split.c \
                           lib/ft_substr.c \
                           lib/ft_lstsize.c \

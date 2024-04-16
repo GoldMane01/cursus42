@@ -51,6 +51,7 @@ int		repeats_check(t_stack *a, int n);
 //Free
 void	free_all(t_stack **a, char **argv, bool argc);
 void	free_argv(char **argv);
+void	free_stack(t_stack **stack);
 
 //Init
 void	init_stack(t_stack **a, char **argv, bool argc);
@@ -72,14 +73,17 @@ void	rra(t_stack **a, int show);
 void	rrb(t_stack **b, int show);
 void	rrr(t_stack **a, t_stack **b, int show);
 
-//Tiny Sort
+//Sort
 void	tiny_sort(t_stack **a);
+void	five_sort(t_stack **a, t_stack **b);
 void	push_swap(t_stack **a, t_stack **b);
 
 //Utils
 t_stack	*find_highest(t_stack *a);
 t_stack	*find_smallest(t_stack *a);
+t_stack	*find_cheapest(t_stack *stk);
 int		sorted(t_stack **stk);
+void	finish_rotation(t_stack **stk, t_stack *top, char stk_c);
 
 //Setters
 void	set_targets(t_stack *a, t_stack *b);

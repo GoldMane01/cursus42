@@ -25,6 +25,8 @@ int	main(int argc, char **argv)
 		else
 			push_swap(&stka, &stkb);
 	}
+	free_stack(&stka);
+	return (0);
 }
 
 /* VISUALIZADOR DEL STACK

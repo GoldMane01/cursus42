@@ -40,9 +40,22 @@ int	sorted(t_stack **stk)
 	while (next)
 	{
 		if (node->num > next->num)
-			return (-1);
+			return (0);
 		node = node->next;
 		next = node->next;
 	}
 	return (1);
+}
+
+t_stack	*find_cheapest(t_stack *stk)
+{
+	if (stk == NULL)
+		return (NULL);
+	while (stk)
+	{
+		if (stk->cheapest)
+			return (stk);
+		stk = stk->next;
+	}
+	return (NULL);
 }
