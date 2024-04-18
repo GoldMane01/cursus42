@@ -1,24 +1,33 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dramos-n <dramos-n@student.42malaga.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/18 18:08:43 by dramos-n          #+#    #+#             */
+/*   Updated: 2024/04/18 18:08:44 by dramos-n         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../push_swap.h"
 
 void	free_argv(char **argv)
 {
 	int	i;
 
-	i = 0;
-	if (argv == NULL || *argv == NULL)
+	i = -1;
+	if (NULL == argv || NULL == *argv)
 		return ;
 	while (argv[i])
-	{
-		free(argv[i]);
-		i++;
-	}
-	free(argv);
+		free(argv[i++]);
+	free(argv - 1);
 }
 
 void	free_stack(t_stack **stack)
 {
-	t_stack *tmp;
-	t_stack *node;
+	t_stack	*tmp;
+	t_stack	*node;
 
 	if (stack == NULL)
 		return ;

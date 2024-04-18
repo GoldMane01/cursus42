@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dramos-n <dramos-n@student.42malaga.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/18 18:09:48 by dramos-n          #+#    #+#             */
+/*   Updated: 2024/04/18 18:09:49 by dramos-n         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 int	main(int argc, char **argv)
@@ -7,15 +19,14 @@ int	main(int argc, char **argv)
 
 	stka = NULL;
 	stkb = NULL;
-	if (argc == 1)
-		return (1);
-	if (argc == 2)
+	if (1 == argc || (2 == argc && !argv[1][0]))
 	{
-		argv = ft_split(argv[1], ' ');
-		init_stack(&stka, argv, argc == 2);
+		write(2, "Error\n", 6);
+		return (1);
 	}
-	else
-		init_stack(&stka, argv + 1, argc == 2);
+	else if (2 == argc)
+		argv = ft_split(argv[1], ' ');
+	init_stack(&stka, argv + 1, 2 == argc);
 	if (!sorted(&stka))
 	{
 		if (ft_lstsize(stka) == 2)
@@ -28,55 +39,3 @@ int	main(int argc, char **argv)
 	free_stack(&stka);
 	return (0);
 }
-
-/* VISUALIZADOR DEL STACK
-
-	t_stack *visual;
-	visual = stka;
-	while (visual)
-	{
-		printf("NUM: %d\n", visual->num);
-		visual = visual->next;
-	}
-
-	printf("---------------------------\n");
-
-	visual = stkb;
-	while (visual)
-	{
-		printf("NUM: %d\n", visual->num);
-		visual = visual->next;
-	}
-
-
-
-	pb(&stka, &stkb, 0);
-	pb(&stka, &stkb, 0);
-	pb(&stka, &stkb, 0);
-	pb(&stka, &stkb, 0);
-	pb(&stka, &stkb, 0);
-	pb(&stka, &stkb, 0);
-	pb(&stka, &stkb, 0);
-	pb(&stka, &stkb, 0);
-	pb(&stka, &stkb, 0);
-	tiny_sort(&stka);
-	set_all(stka, stkb);
-
-	t_stack *visual;
-	visual = stka;
-	while (visual)
-	{
-		printf("%d: Price-> %d, Num-> %d\n", visual->pos, visual->price, visual->num);
-		visual = visual->next;
-	}
-
-	printf("---------------------------\n");
-
-	visual = stkb;
-	while (visual)
-	{
-		printf("%d: Price-> %d, Target-> %d, Num-> %d, Cheapest-> %d\n", visual->pos, visual->price, visual->target->num, visual->num, visual->cheapest);
-		visual = visual->next;
-	}
-
-*/

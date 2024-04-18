@@ -12,10 +12,19 @@
 
 #include "../push_swap.h"
 
-int	ft_atoi(const char *str)
+long	get_sign(char c)
 {
-	int	sign;
-	int	res;
+	if (c == '-')
+		return (-1);
+	if (c == '+')
+		return (1);
+	return (0);
+}
+
+long	ft_atol(const char *str)
+{
+	long	sign;
+	long	res;
 
 	res = 0;
 	sign = 1;
@@ -26,12 +35,13 @@ int	ft_atoi(const char *str)
 		else
 			break ;
 	}
-	if (*str == '-' || *str == '+')
+	if (*str == '-')
 	{
-		if (*str == '-')
-			sign = -sign;
+		sign = -1;
 		str++;
 	}
+	if (!*str)
+		return (-2147483649);
 	while (*str >= '0' && *str <= '9')
 	{
 		res = (res * 10) + (*str - '0');

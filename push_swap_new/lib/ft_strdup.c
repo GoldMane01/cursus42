@@ -18,9 +18,6 @@ char	*ft_strdup(const char *s1)
 	char			*ptr;
 	char			*res;
 
-	/** Two pointers are created so that while one increses
-	 * the other keeps pointing to the start to be returned.
-	*/
 	ptr = (char *)malloc(sizeof(char) * (ft_strlen(s1) + 1));
 	res = ptr;
 	if (ptr != NULL)

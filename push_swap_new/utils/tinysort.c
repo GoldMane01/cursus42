@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tinysort.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dramos-n <dramos-n@student.42malaga.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/18 18:09:12 by dramos-n          #+#    #+#             */
+/*   Updated: 2024/04/18 18:09:14 by dramos-n         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../push_swap.h"
 
 void	tiny_sort(t_stack **a)
@@ -11,14 +23,4 @@ void	tiny_sort(t_stack **a)
 		rra(a, 1);
 	if ((*a)->num > (*a)->next->num)
 		sa(a, 1);
-}
-
-void	five_sort(t_stack **a, t_stack **b)
-{
-	while (ft_lstsize(*a) > 3)
-	{
-		set_all(*a, *b);
-		finish_rotation(a, find_smallest(*a), 'a');
-		pb(b, a, false);
-	}
 }

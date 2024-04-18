@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dramos-n <dramos-n@student.42malaga.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/18 18:09:18 by dramos-n          #+#    #+#             */
+/*   Updated: 2024/04/18 18:09:19 by dramos-n         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../push_swap.h"
 
 t_stack	*find_smallest(t_stack *a)
@@ -5,7 +17,7 @@ t_stack	*find_smallest(t_stack *a)
 	t_stack	*lowest_node;
 
 	lowest_node = a;
-	while(a)
+	while (a)
 	{
 		if (a->num < lowest_node->num)
 			lowest_node = a;
@@ -19,7 +31,7 @@ t_stack	*find_highest(t_stack *a)
 	t_stack	*highest_node;
 
 	highest_node = a;
-	while(a)
+	while (a)
 	{
 		if (a->num > highest_node->num)
 			highest_node = a;

@@ -12,63 +12,77 @@
 
 #include "../push_swap.h"
 
-static size_t	count_strs(char const *s, char c)
+static int	count_words(char *str, char separator)
 {
-	int	count;
-	int	i;
+	int		count;
+	bool	inside_word;
 
 	count = 0;
-	i = 0;
-	if (!s[i])
-		return (0);
-	while (s[i])
+	while (*str)
 	{
-		if ((s[i + 1] == c || s[i + 1] == '\0') && s[i] != c)
-			count++;
-		i++;
+		inside_word = false;
+		while (*str == separator && *str)
+			++str;
+		while (*str != separator && *str)
+		{
+			if (!inside_word)
+			{
+				++count;
+				inside_word = true;
+			}
+			++str;
+		}
 	}
 	return (count);
 }
 
-static char	**free_ptr(char	**ptr)
+static char	*get_next_word(char *str, char separator)
 {
-	int	i;
+	static int	cursor = 0;
+	char		*next_str;
+	int			len;
+	int			i;
 
+	len = 0;
 	i = 0;
-	while (ptr[i])
-	{
-		free(ptr[i]);
-		i++;
-	}
-	free(ptr);
-	return (NULL);
+	while (str[cursor] == separator)
+		++cursor;
+	while ((str[cursor + len] != separator) && str[cursor + len])
+		++len;
+	next_str = malloc((size_t)len * sizeof(char) + 1);
+	if (NULL == next_str)
+		return (NULL);
+	while ((str[cursor] != separator) && str[cursor])
+		next_str[i++] = str[cursor++];
+	next_str[i] = '\0';
+	return (next_str);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char *str, char separator)
 {
+	int		words_number;
+	char	**vector_strings;
 	int		i;
-	int		j;
-	int		k;
-	char	**ptr;
 
-	i = -1;
-	k = 0;
-	ptr = malloc(sizeof(char *) * (count_strs(s, c) + 1));
-	if (!ptr)
+	i = 0;
+	words_number = count_words(str, separator);
+	if (!words_number)
+		exit(1);
+	vector_strings = malloc(sizeof(char *) * (size_t)(words_number + 2));
+	if (NULL == vector_strings)
 		return (NULL);
-	while (s[++i])
+	while (words_number-- >= 0)
 	{
-		if (s[i] != c)
+		if (0 == i)
 		{
-			j = 0;
-			while (s[i + j] != c && s[i + j])
-				j++;
-			ptr[k++] = ft_substr(s, i, j);
-			if (!ptr[k - 1])
-				return (free_ptr(ptr));
-			i += j - 1;
+			vector_strings[i] = malloc(sizeof(char));
+			if (NULL == vector_strings[i])
+				return (NULL);
+			vector_strings[i++][0] = '\0';
+			continue ;
 		}
+		vector_strings[i++] = get_next_word(str, separator);
 	}
-	ptr[k] = NULL;
-	return (ptr);
+	vector_strings[i] = NULL;
+	return (vector_strings);
 }

@@ -42,6 +42,7 @@ SRCS        :=      commands/reverse.c \
                           push_swap.c \
 
 SRCBONUS	:=		bonus/checker_bonus.c \
+						  bonus/commands_bonus.c \
                           bonus/gnl/get_next_line.c \
                           bonus/gnl/get_next_line_utils.c \
                           commands/reverse.c \
@@ -107,11 +108,11 @@ bonus:		${NAMEBONUS}
 
 clean:
 			@ ${RM} *.o */*.o */*/*.o
-			@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)objs ✔️"
+			@ echo "$(RED)Deleting $(CYAN)$(NAME) $(NAMEBONUS) $(CLR_RMV)objs ✔️"
 
 fclean:		clean
-			@ ${RM} ${NAME}
-			@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)binary ✔️"
+			@ ${RM} ${NAME} ${NAMEBONUS}
+			@ echo "$(RED)Deleting $(CYAN)$(NAME) $(NAMEBONUS) $(CLR_RMV)binary ✔️"
 
 re:			fclean all
 

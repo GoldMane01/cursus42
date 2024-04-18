@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dramos-n <dramos-n@student.42malaga.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/18 18:09:04 by dramos-n          #+#    #+#             */
+/*   Updated: 2024/04/18 18:09:05 by dramos-n         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../push_swap.h"
 
 void	rotate_both(t_stack **a, t_stack **b, t_stack *cheapest)
 {
 	while (*b != cheapest && *a != cheapest->target)
-		rr(a, b, false);
+		rr(a, b, 1);
 	set_positions(*a);
 	set_positions(*b);
 }
@@ -11,7 +23,7 @@ void	rotate_both(t_stack **a, t_stack **b, t_stack *cheapest)
 void	reverse_rotate_both(t_stack **a, t_stack **b, t_stack *cheapest)
 {
 	while (*b != cheapest && *a != cheapest->target)
-		rrr(a, b, false);
+		rrr(a, b, 1);
 	set_positions(*a);
 	set_positions(*b);
 }
@@ -49,7 +61,6 @@ void	move_nodes(t_stack **a, t_stack **b)
 	finish_rotation(b, cheapest, 'b');
 	finish_rotation(a, cheapest->target, 'a');
 	pa(a, b, 1);
-	
 }
 
 void	push_swap(t_stack **a, t_stack **b)
@@ -58,13 +69,8 @@ void	push_swap(t_stack **a, t_stack **b)
 	t_stack	*smallest;
 
 	a_size = ft_lstsize(*a);
-	//if (a_size == 5)
-	//	five_sort(a, b);
-	//else
-	//{
-		while (a_size-- > 3)
-			pb(a, b, 1);
-	//}
+	while (a_size-- > 3)
+		pb(a, b, 1);
 	tiny_sort(a);
 	while (*b)
 	{
