@@ -37,9 +37,9 @@ void	read_input(int link[], char *infile)
 	write(STDOUT_FILENO, buffer, bytes);
 }
 
-void	read_file(char *infile, int cmdnum, int fd[])
+void	read_file(char *infile, int input, int fd[])
 {
-	if (cmdnum == 0)
+	if (input == 1)
 		read_input(fd, infile);
 	else
 		read_temp(fd);
