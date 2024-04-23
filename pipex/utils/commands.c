@@ -55,6 +55,7 @@ char	**get_commands(char *argv[], int argc)
 	while (i < (argc - 3))
 	{
 		commands[i] = get_argv(argv[i + 2]);
+		commands[i] = argv[i + 2];
 		if (!commands[i])
 		{
 			free_commands(commands);
@@ -65,3 +66,5 @@ char	**get_commands(char *argv[], int argc)
 	commands[i] = NULL;
 	return (commands);
 }
+
+

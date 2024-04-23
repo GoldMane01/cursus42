@@ -41,11 +41,12 @@ char	*check_paths(char **allpaths, char *command);
 char	*cmdname(char *s, char *envp[]);
 
 //UTILS
-int	argv_size(char **argv);
+int		argv_size(char **argv);
 char	**awk_split(char *command);
 int		last_command(char **commands, int cmdnum);
 int		create_temp_file();
 char	*cmdname(char *s, char *envp[]);
+char	**free_ptr(char	**ptr);
 
 //READS
 void	read_temp(int link[]);

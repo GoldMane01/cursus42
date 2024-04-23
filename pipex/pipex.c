@@ -26,6 +26,7 @@ void	execute_command(char **cmds, int cmdn, char **argv, char **envp)
 	close(fd[0]);
 	close(fd[1]);
 	waitpid(pid, NULL, 0);
+	//free(cmds[cmdn]);
 }
 
 int	main(int argc, char *argv[], char *envp[])
@@ -34,8 +35,9 @@ int	main(int argc, char *argv[], char *envp[])
 	int		cmdn;
 
 	cmds = get_commands(argv, argc);
+	//free_commands(cmds);
 	create_temp_file();
-	cmdn = 0;
+	cmdn = 2;
 	if (argc < 5)
 	{
 		write(2, "Bad input\n", 10);

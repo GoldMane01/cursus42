@@ -30,7 +30,7 @@ static size_t	count_strs(char const *s, char c)
 	return (count);
 }
 
-static char	**free_ptr(char	**ptr)
+char	**free_ptr(char	**ptr)
 {
 	int	i;
 
@@ -38,9 +38,11 @@ static char	**free_ptr(char	**ptr)
 	while (ptr[i])
 	{
 		free(ptr[i]);
+		ptr[i] = NULL;
 		i++;
 	}
 	free(ptr);
+	ptr = NULL;
 	return (NULL);
 }
 
