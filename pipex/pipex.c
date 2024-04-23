@@ -1,6 +1,6 @@
 #include "pipex.h"
 
-void	execute_command(char **cmds, int cmdn, char **argv, char **envp)
+void	execute_command(char **argv, char **envp, char *infile, int first_read)
 {
 	int		fd[2];
 	int		pid;
@@ -13,15 +13,15 @@ void	execute_command(char **cmds, int cmdn, char **argv, char **envp)
 	if (pid == 0)
 	{
 		out = argv[argv_size(argv) - 1];
-		read_file(argv[1], cmdn, fd);
-		if (ft_strnstr(cmds[cmdn], "awk", 3))
-			split = awk_split(cmds[cmdn]);
+		read_file(infile, first_read, fd);
+		if (ft_strnstr(*argv, "awk", 3))
+			split = awk_split(*argv);
 		else
-			split = ft_split(cmds[cmdn], ' ');
-		if (!last_command(cmds, cmdn))
-			write_temp(fd, cmdname(cmds[cmdn], envp), split);
+			split = ft_split(*argv, ' ');
+		if (argv_size(argv) > 2)
+			write_temp(fd, cmdname(*argv, envp), split);
 		else
-			write_output(fd, cmdname(cmds[cmdn], envp), split, out);
+			write_output(fd, cmdname(*argv, envp), split, out);
 	}
 	close(fd[0]);
 	close(fd[1]);
@@ -31,22 +31,24 @@ void	execute_command(char **cmds, int cmdn, char **argv, char **envp)
 
 int	main(int argc, char *argv[], char *envp[])
 {
-	char	**cmds;
-	int		cmdn;
+	char	*infile;
+	int		first_read;
 
-	cmds = get_commands(argv, argc);
-	//free_commands(cmds);
-	create_temp_file();
-	cmdn = 2;
 	if (argc < 5)
 	{
 		write(2, "Bad input\n", 10);
 		return (1);
 	}
-	while (cmds[cmdn])
+	create_temp_file();
+	infile = argv[1];
+	argv += 2;
+	first_read = 1;
+	while (*argv)
 	{
-		execute_command(cmds, cmdn, argv, envp);
-		cmdn++;
+		if (argv_size(argv) > 1)
+			execute_command(argv, envp, infile, first_read);
+		first_read = 0;
+		argv++;
 	}
 	unlink("temp");
 	return (0);

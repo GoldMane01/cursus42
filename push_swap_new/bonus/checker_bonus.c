@@ -37,7 +37,7 @@ int	operate_all(t_stack **stka, t_stack **stkb)
 {
 	char	*op;
 
-	op = NULL;
+	op = "0";
 	while (op)
 	{
 		op = get_next_line(STDIN_FILENO);
@@ -67,15 +67,6 @@ int	main(int argc, char *argv[])
 	init_stack(&stka, argv + 1, 2 == argc);
 	if (!operate_all(&stka, &stkb))
 		return (1);
-
-	/*t_stack *visual;
-	visual = stka;
-	while (visual)
-	{
-		printf("->%d\n", visual->num);
-		visual = visual->next;
-	}*/
-
 	write_ok(stka);
 	return (0);
 }
