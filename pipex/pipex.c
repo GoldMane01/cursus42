@@ -26,7 +26,6 @@ void	execute_command(char **argv, char **envp, char *infile, int first_read)
 	close(fd[0]);
 	close(fd[1]);
 	waitpid(pid, NULL, 0);
-	//free(cmds[cmdn]);
 }
 
 int	main(int argc, char *argv[], char *envp[])
