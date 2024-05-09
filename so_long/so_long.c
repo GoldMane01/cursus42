@@ -83,17 +83,31 @@ int	check_parameters(char **map)
 	while (map[i])
 	{
 		j = 0;
-
-
-		printf("%s\n", map[i]);
-
-		/*while (map[i][j])
+		if (map[i][ft_strlen(map[i]) - 1] == '\n')
+			map[i][ft_strlen(map[i]) - 1] = '\0';
+		while (map[i][j])
 		{
-			//if (map[i][j] != '1' && map[i][j] != '0' && map[i][j] != 'P'
-			//	&& map[i][j] != 'C' && map[i][j] != 'E')
-			//	return (0);
+			if (!ft_strchr("10PCE\n", map[i][j]))
+				return (0);
 			j++;
-		}*/
+		}
+		i++;
+	}
+	return (1);
+}
+
+int	check_size(char **map, int cols)
+{
+	int	i;
+
+	i = 0;
+	while(map[i])
+	{
+		
+		if (map[i][ft_strlen(map[i]) - 1] == '\n')
+			map[i][ft_strlen(map[i]) - 1] = '\0';
+		if (ft_strlen(map[i]) < 4 || ft_strlen(map[i]) != cols)
+			return (0);
 		i++;
 	}
 	return (1);
@@ -101,17 +115,11 @@ int	check_parameters(char **map)
 
 int	map_check(char **map, int cols)
 {
-	int	i;
-
-	while(map[i])
-	{
-		//if (map[i][ft_strlen(map[i]) - 1] == '\n')
-		//	map[i][ft_strlen(map[i]) - 2] = '\0';
-		//if (ft_strlen(map[i]) < 4 || ft_strlen(map[i]) != cols)
-		//	return (0);
-		//i++;
-	}
+	if (!check_size(map, cols))
+		return (0);
 	if (!check_extra(map, 'P'))
+		return (0);
+	if (!check_extra(map, 'E'))
 		return (0);
 	if (!check_missing(map, 'C'))
 		return (0);
@@ -143,7 +151,7 @@ int	main(int argc, char **argv)
 		return (1);
 	rows = get_rows(argv[1]);
 	map = read_map(argv[1], rows);
-	if (!map_check(map, ft_strlen(map[0]) - 2))
+	if (!map_check(map, ft_strlen(map[0]) - 1))
 		return (1);
 	return (0);
 }

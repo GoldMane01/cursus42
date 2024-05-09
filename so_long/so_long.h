@@ -1,7 +1,7 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# define BUFFER_SIZE 1024
+# define BUFFER_SIZE 1
 
 # include <unistd.h>
 # include <stdlib.h>
