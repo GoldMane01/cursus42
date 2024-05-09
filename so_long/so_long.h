@@ -7,12 +7,18 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <stdio.h>
+# include "MLX42/include/MLX42/MLX42.h"
 
 typedef struct s_list
 {
 	char			*str;
 	struct s_list	*next;
 }					t_list;
+
+typedef struct s_map
+{
+	mlx_t	*mlx;
+}				t_map;
 
 //GNL
 char	*get_next_line(int fd);

@@ -1,63 +1,28 @@
-#  |  |  ___ \    \  |         |
-#  |  |     ) |  |\/ |   _  |  |  /   _ 
-# ___ __|  __/   |   |  (   |    <    __/ 
-#    _|  _____| _|  _| \__,_| _|\_\ \___|
-#                              by jcluzet
-################################################################################
-#                                     CONFIG                                   #
-################################################################################
+NAME    := so_long
+CFLAGS  := #-Wextra -Wall -Werror -Wunreachable-code
+MLX_DIR = ./MLX42
+MLX     := $(MLX_DIR)/libmlx42.a
+HEADERS := -I$(MLX)
+MLX_FLAGS   := -ldl -pthread -lm
+SRCS    := so_long.c \
+        gnl/get_next_line.c \
+        gnl/get_next_line_utils.c \
+		lib/ft_strchr.c \
+		lib/ft_strlen.c \
+		lib/ft_strncmp.c
 
-NAME        := so_long
-CC        := gcc
-FLAGS    := #-Wall -Wextra -Werror 
-################################################################################
-#                                 PROGRAM'S SRCS                               #
-################################################################################
-
-SRCS        :=      so_long.c \
-                          lib/ft_strncmp.c \
-                          lib/ft_strlen.c \
-						  lib/ft_strchr.c \
-                          gnl/get_next_line.c \
-                          gnl/get_next_line_utils.c \
-                          
-OBJS        := $(SRCS:.c=.o)
-
-.c.o:
-	${CC} ${FLAGS} -c $< -o ${<:.c=.o}
-
-################################################################################
-#                                  Makefile  objs                              #
-################################################################################
-
-
-CLR_RMV		:= \033[0m
-RED		    := \033[1;31m
-GREEN		:= \033[1;32m
-YELLOW		:= \033[1;33m
-BLUE		:= \033[1;34m
-CYAN 		:= \033[1;36m
-RM		    := rm -f
-
-${NAME}:	${OBJS}
-			@echo "$(GREEN)Compilation ${CLR_RMV}of ${YELLOW}$(NAME) ${CLR_RMV}..."
-			${CC} ${FLAGS} -o ${NAME} ${OBJS}
-			@echo "$(GREEN)$(NAME) created[0m ✔️"
-
-all:		${NAME}
-
-bonus:		all
-
+OBJS    := ${SRCS:.c=.o}
+all: $(NAME)
+libmlx:
+	@make -C $(MLX_DIR)
+%.o: %.c
+	@$(CC) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
+	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
+$(NAME): $(OBJS) libmlx
+	@$(CC) $(OBJS) $(MLX) $(HEADERS) -lglfw -L /Users/$(USER)/.brew/opt/glfw/lib/ -o $(NAME)
 clean:
-			@ ${RM} *.o */*.o */*/*.o
-			@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)objs ✔️"
-
-fclean:		clean
-			@ ${RM} ${NAME}
-			@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)binary ✔️"
-
-re:			fclean all
-
-.PHONY:		all clean fclean re
-
-
+	@rm -rf $(OBJS)
+fclean: clean
+	@rm -rf $(NAME)
+re: clean all
+.PHONY: all, clean, fclean, re, libmlx

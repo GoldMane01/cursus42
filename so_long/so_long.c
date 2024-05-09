@@ -22,7 +22,6 @@ int	get_rows(char *path)
 {
 	int	fd;
 	int	rows;
-	char	*gnl;
 
 
 	fd = open(path, O_RDONLY);
@@ -87,7 +86,7 @@ int	check_parameters(char **map)
 			map[i][ft_strlen(map[i]) - 1] = '\0';
 		while (map[i][j])
 		{
-			if (!ft_strchr("10PCE\n", map[i][j]))
+			if (!ft_strchr("10PCE", map[i][j]))
 				return (0);
 			j++;
 		}
@@ -113,7 +112,31 @@ int	check_size(char **map, int cols)
 	return (1);
 }
 
-int	map_check(char **map, int cols)
+int	check_walls(char **map, int rows, int cols)
+{
+	int	j;
+	int	i;
+
+	i = 0;
+	if (map[i][ft_strlen(map[i]) - 1] == '\n')
+		map[i][ft_strlen(map[i]) - 1] = '\0';
+	j = 0;
+	while (map[0][j])
+	{
+		if (map[0][j] != map[rows - 1][j])
+			return (0);
+		j++;
+	}
+	while(map[i])
+	{
+		if (map[i][0] != map[i][cols - 1])
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int	map_check(char **map, int cols, int rows)
 {
 	if (!check_size(map, cols))
 		return (0);
@@ -128,6 +151,8 @@ int	map_check(char **map, int cols)
 	if (!check_missing(map, 'E'))
 		return (0);
 	if (!check_parameters(map))
+		return (0);
+	if (!check_walls(map, rows, cols))
 		return (0);
 	return (1);
 }
@@ -151,7 +176,7 @@ int	main(int argc, char **argv)
 		return (1);
 	rows = get_rows(argv[1]);
 	map = read_map(argv[1], rows);
-	if (!map_check(map, ft_strlen(map[0]) - 1))
+	if (!map_check(map, ft_strlen(map[0]) - 1, rows))
 		return (1);
 	return (0);
 }
