@@ -7,7 +7,9 @@ char	**read_map(char *path, int rows)
 	int		i;
 
 	fd = open(path, O_RDONLY);
-	gnl = malloc(sizeof(char *) * rows);
+	if (fd == -1)
+		return (NULL);
+	gnl = malloc(sizeof(char *) * (rows + 1));
 	i = 0;
 	while (rows-- > 0)
 	{
@@ -18,16 +20,34 @@ char	**read_map(char *path, int rows)
 	return (gnl);
 }
 
+void	free_map(char **map)
+{
+	int	i = 0;
+
+	while (map[i])
+	{
+		free(map[i]);
+		i++;
+	}
+	free(map);
+}
+
 int	get_rows(char *path)
 {
-	int	fd;
-	int	rows;
-
+	int		fd;
+	int		rows;
+	char	*line;
 
 	fd = open(path, O_RDONLY);
 	rows = 0;
-	while(get_next_line(fd))
+	line = get_next_line(fd);
+	while(line)
+	{
 		rows++;
+		free(line);
+		line = get_next_line(fd);
+	}
+	free(line);
 	return (rows);
 }
 
@@ -136,6 +156,66 @@ int	check_walls(char **map, int rows, int cols)
 	return (1);
 }
 
+void	recursive_flood(char **map, int x, int y)
+{
+	if (map[y][x] && (map[y][x] == '0' || map[y][x] == 'P'
+		|| map[y][x] == 'C' || map[y][x] == 'E'))
+	{
+		map[y][x] = 'X';
+		recursive_flood(map, x - 1, y);
+		recursive_flood(map, x + 1, y);
+		recursive_flood(map, x, y - 1);
+		recursive_flood(map, x, y + 1);
+	}
+}
+
+int	flood_fill(char **map)
+{
+	int	row;
+	int	col;
+	int	check;
+
+	row = 0;
+	col = 0;
+	check = 0;
+	while (!ft_strchr(map[row], 'P'))
+		row++;
+	while (map[row][col] && map[row][col] != 'P')
+		col++;
+	recursive_flood(map, col, row);
+	if (!check_missing(map, 'P') && !check_missing(map, 'E')
+		&& !check_missing(map, 'C'))
+		check = 1;
+	free_map(map);
+	return (check);
+}
+
+char	**map_copy(char **map, int rows, int cols)
+{
+	char	**mapCopy;
+	int		i;
+	int		j;
+
+	mapCopy = malloc(sizeof(char *) * (rows + 1));
+	if (!mapCopy)
+		return (NULL);
+	i = 0;
+	while (map[i])
+	{
+		mapCopy[i] = malloc(sizeof(char) * (cols + 2));
+		j = 0;
+		while (map[i][j])
+		{
+			mapCopy[i][j] = map[i][j];
+			j++;
+		}
+		mapCopy[i][j] = '\0';
+		i++;
+	}
+	mapCopy[i] = NULL;
+	return (mapCopy);
+}
+
 int	map_check(char **map, int cols, int rows)
 {
 	if (!check_size(map, cols))
@@ -153,6 +233,8 @@ int	map_check(char **map, int cols, int rows)
 	if (!check_parameters(map))
 		return (0);
 	if (!check_walls(map, rows, cols))
+		return (0);
+	if (!flood_fill(map_copy(map, rows, cols)))
 		return (0);
 	return (1);
 }
@@ -176,7 +258,10 @@ int	main(int argc, char **argv)
 		return (1);
 	rows = get_rows(argv[1]);
 	map = read_map(argv[1], rows);
+	if (!map)
+		return (1);
 	if (!map_check(map, ft_strlen(map[0]) - 1, rows))
 		return (1);
+	free_map(map);
 	return (0);
 }
