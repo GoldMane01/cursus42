@@ -253,6 +253,7 @@ int	main(int argc, char **argv)
 {
 	char	**map;
 	int		rows;
+	mlx_t	*game;
 
 	if (!argv[1] || !extension_check(argv[1]))
 		return (1);
@@ -262,6 +263,13 @@ int	main(int argc, char **argv)
 		return (1);
 	if (!map_check(map, ft_strlen(map[0]) - 1, rows))
 		return (1);
+	
+	game = mlx_init((ft_strlen(map[0]) - 1) * TILE, rows * TILE, 
+			"42Balls", false);
+
+	mlx_loop(game);
+
+
 	free_map(map);
 	return (0);
 }

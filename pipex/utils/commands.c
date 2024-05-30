@@ -66,5 +66,3 @@ char	**get_commands(char *argv[], int argc)
 	commands[i] = NULL;
 	return (commands);
 }
-
-

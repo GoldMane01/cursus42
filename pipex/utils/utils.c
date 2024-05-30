@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dramos-n <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/27 17:27:01 by dramos-n          #+#    #+#             */
+/*   Updated: 2024/05/27 17:27:03 by dramos-n         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../pipex.h"
 
 int	argv_size(char **argv)
@@ -22,7 +34,7 @@ char	**awk_split(char *command)
 	if (!awk[0])
 		return (NULL);
 	awk[0] = "awk\0";
-	command+=5;
+	command += 5;
 	awk[1] = malloc(sizeof(char) * (ft_strlen(command) + 1));
 	if (!awk[1])
 		return (NULL);
@@ -42,7 +54,7 @@ int	last_command(char **commands, int cmdnum)
 	return (0);
 }
 
-int	create_temp_file()
+int	create_temp_file(void)
 {
 	int	fd;
 

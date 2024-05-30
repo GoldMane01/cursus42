@@ -2,6 +2,7 @@
 # define SO_LONG_H
 
 # define BUFFER_SIZE 1024
+# define TILE 64
 
 # include <unistd.h>
 # include <stdlib.h>

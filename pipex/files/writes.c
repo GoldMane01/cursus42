@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   writes.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dramos-n <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/27 17:26:50 by dramos-n          #+#    #+#             */
+/*   Updated: 2024/05/27 17:26:51 by dramos-n         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../pipex.h"
 
 void	write_output(int link[], char *path, char **arg, char *outfile)
@@ -19,7 +31,6 @@ void	write_output(int link[], char *path, char **arg, char *outfile)
 		perror("Command could not be executed");
 		exit(1);
 	}
-	
 }
 
 void	write_temp(int link[], char *path, char **arg)
