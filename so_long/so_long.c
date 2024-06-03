@@ -22,8 +22,9 @@ char	**read_map(char *path, int rows)
 
 void	free_map(char **map)
 {
-	int	i = 0;
+	int	i;
 
+	i = 0;
 	while (map[i])
 	{
 		free(map[i]);
@@ -41,7 +42,7 @@ int	get_rows(char *path)
 	fd = open(path, O_RDONLY);
 	rows = 0;
 	line = get_next_line(fd);
-	while(line)
+	while (line)
 	{
 		rows++;
 		free(line);
@@ -59,10 +60,10 @@ int	check_extra(char **map, int c)
 
 	i = 0;
 	extra_count = 0;
-	while(map[i])
+	while (map[i])
 	{
 		j = 0;
-		while(map[i][j] && map[i][j] != '\n')
+		while (map[i][j] && map[i][j] != '\n')
 		{
 			if (map[i][j] == c)
 				extra_count++;
@@ -120,9 +121,8 @@ int	check_size(char **map, int cols)
 	int	i;
 
 	i = 0;
-	while(map[i])
+	while (map[i])
 	{
-		
 		if (map[i][ft_strlen(map[i]) - 1] == '\n')
 			map[i][ft_strlen(map[i]) - 1] = '\0';
 		if (ft_strlen(map[i]) < 4 || ft_strlen(map[i]) != cols)
@@ -147,7 +147,7 @@ int	check_walls(char **map, int rows, int cols)
 			return (0);
 		j++;
 	}
-	while(map[i])
+	while (map[i])
 	{
 		if (map[i][0] != map[i][cols - 1])
 			return (0);
@@ -192,28 +192,28 @@ int	flood_fill(char **map)
 
 char	**map_copy(char **map, int rows, int cols)
 {
-	char	**mapCopy;
+	char	**map_copy;
 	int		i;
 	int		j;
 
-	mapCopy = malloc(sizeof(char *) * (rows + 1));
-	if (!mapCopy)
+	map_copy = malloc(sizeof(char *) * (rows + 1));
+	if (!map_copy)
 		return (NULL);
 	i = 0;
 	while (map[i])
 	{
-		mapCopy[i] = malloc(sizeof(char) * (cols + 2));
+		map_copy[i] = malloc(sizeof(char) * (cols + 2));
 		j = 0;
 		while (map[i][j])
 		{
-			mapCopy[i][j] = map[i][j];
+			map_copy[i][j] = map[i][j];
 			j++;
 		}
-		mapCopy[i][j] = '\0';
+		map_copy[i][j] = '\0';
 		i++;
 	}
-	mapCopy[i] = NULL;
-	return (mapCopy);
+	map_copy[i] = NULL;
+	return (map_copy);
 }
 
 int	map_check(char **map, int cols, int rows)
@@ -249,27 +249,79 @@ int	extension_check(char *path)
 	return (1);
 }
 
+void	get_textures(t_game *game)
+{
+	game->textures = ft_calloc(1, sizeof(t_textures));
+	game->textures->ground = mlx_load_png("./assets/ground.png");
+	game->textures->wall = mlx_load_png("./assets/wall.png");
+	game->textures->player = mlx_load_png("./assets/player.png");
+	game->textures->exit_closed = mlx_load_png("./assets/exit_closed.png");
+	game->textures->item = mlx_load_png("./assets/item.png");
+}
+
+void	get_images(t_game *game)
+{
+	game->images = ft_calloc(1, sizeof(t_images));
+	game->images->ground = mlx_texture_to_image(game->mlx,
+		game->textures->ground);
+	game->images->wall = mlx_texture_to_image(game->mlx,
+		game->textures->wall);
+	game->images->player = mlx_texture_to_image(game->mlx,
+		game->textures->player);
+	game->images->item = mlx_texture_to_image(game->mlx,
+		game->textures->item);
+	game->images->exit_closed = mlx_texture_to_image(game->mlx,
+		game->textures->exit_closed);
+	mlx_delete_texture(game->textures->ground);
+	mlx_delete_texture(game->textures->wall);
+	mlx_delete_texture(game->textures->player);
+	mlx_delete_texture(game->textures->exit_closed);
+	mlx_delete_texture(game->textures->item);
+}
+
+void	place_ground(t_game *game)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	while (game->map[y])
+	{
+		x = 0;
+		while (game->map[y][x])
+		{
+			mlx_image_to_window(game->mlx, game->images->ground, x * TILE, y * TILE);
+			x++;
+		}
+		y++;
+	}
+}
+
 int	main(int argc, char **argv)
 {
-	char	**map;
 	int		rows;
-	mlx_t	*game;
+	t_game	*game;
 
 	if (!argv[1] || !extension_check(argv[1]))
 		return (1);
 	rows = get_rows(argv[1]);
-	map = read_map(argv[1], rows);
-	if (!map)
+	game->map = read_map(argv[1], rows);
+	if (!(game->map))
 		return (1);
-	if (!map_check(map, ft_strlen(map[0]) - 1, rows))
+	if (!map_check(game->map, ft_strlen(game->map[0]) - 1, rows))
 		return (1);
-	
-	game = mlx_init((ft_strlen(map[0]) - 1) * TILE, rows * TILE, 
-			"42Balls", false);
+	game->mlx = mlx_init((ft_strlen(game->map[0]) - 1) * TILE, rows * TILE, 
+			"So Long", false);
 
-	mlx_loop(game);
+	get_textures(game);
+	get_images(game);
+
+	//place_ground(game);
+
+	mlx_loop(game->mlx);
 
 
-	free_map(map);
+	free_map(game->map);
 	return (0);
 }

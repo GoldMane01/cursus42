@@ -9,7 +9,8 @@ SRCS    := so_long.c \
         gnl/get_next_line_utils.c \
 		lib/ft_strchr.c \
 		lib/ft_strlen.c \
-		lib/ft_strncmp.c
+		lib/ft_strncmp.c \
+		lib/ft_calloc.c
 
 OBJS    := ${SRCS:.c=.o}
 all: $(NAME)
