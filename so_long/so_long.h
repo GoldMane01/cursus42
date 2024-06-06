@@ -18,29 +18,34 @@ typedef struct s_list
 
 typedef struct s_textures
 {
-	mlx_texture_t	ground;
-	mlx_texture_t	wall;
-	mlx_texture_t	player;
-	mlx_texture_t	item;
-	mlx_texture_t	exit_closed;
+	mlx_texture_t	*ground;
+	mlx_texture_t	*wall;
+	mlx_texture_t	*player;
+	mlx_texture_t	*item;
+	mlx_texture_t	*exit_closed;
 }					t_textures;
 
 typedef struct s_images
 {
-	mlx_image_t	ground;
-	mlx_image_t	wall;
-	mlx_image_t	player;
-	mlx_image_t	item;
-	mlx_image_t	exit_closed;
+	mlx_image_t	*ground;
+	mlx_image_t	*wall;
+	mlx_image_t	*player;
+	mlx_image_t	*item;
+	mlx_image_t	*exit_closed;
 }				t_images;
 
 typedef struct s_game
 {
 	mlx_t		*mlx;
-	t_images	images;
-	t_textures	textures;
+	t_images	*images;
+	t_textures	*textures;
 	int			item_count;
 	char		**map;
+	int			moves;
+	int			player_x;
+	int			player_y;
+	int			exit_x;
+	int			exit_y;
 }				t_game;
 
 //GNL
