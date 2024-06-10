@@ -23,6 +23,7 @@ typedef struct s_textures
 	mlx_texture_t	*player;
 	mlx_texture_t	*item;
 	mlx_texture_t	*exit_closed;
+	mlx_texture_t	*exit_open;
 }					t_textures;
 
 typedef struct s_images
@@ -32,6 +33,7 @@ typedef struct s_images
 	mlx_image_t	*player;
 	mlx_image_t	*item;
 	mlx_image_t	*exit_closed;
+	mlx_image_t	*exit_open;
 }				t_images;
 
 typedef struct s_game
@@ -39,8 +41,9 @@ typedef struct s_game
 	mlx_t		*mlx;
 	t_images	*images;
 	t_textures	*textures;
-	int			item_count;
 	char		**map;
+	int			item_count;
+	int			items_collected;
 	int			moves;
 	int			player_x;
 	int			player_y;
@@ -61,5 +64,6 @@ int		ft_strlen(const char *s);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strchr(const char *s, int c);
 void	*ft_calloc(size_t count, size_t size);
+char	*ft_itoa(int n);
 
 #endif

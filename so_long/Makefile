@@ -10,7 +10,8 @@ SRCS    := so_long.c \
 		lib/ft_strchr.c \
 		lib/ft_strlen.c \
 		lib/ft_strncmp.c \
-		lib/ft_calloc.c
+		lib/ft_calloc.c \
+		lib/ft_itoa.c
 
 OBJS    := ${SRCS:.c=.o}
 all: $(NAME)
