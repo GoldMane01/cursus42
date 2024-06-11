@@ -1,5 +1,5 @@
 NAME    := so_long
-CFLAGS  := #-Wextra -Wall -Werror -Wunreachable-code
+CFLAGS  := -Wextra -Wall -Werror -Wunreachable-code
 MLX_DIR = ./MLX42
 MLX     := $(MLX_DIR)/libmlx42.a
 HEADERS := -I$(MLX)
@@ -11,7 +11,14 @@ SRCS    := so_long.c \
 		lib/ft_strlen.c \
 		lib/ft_strncmp.c \
 		lib/ft_calloc.c \
-		lib/ft_itoa.c
+		lib/ft_itoa.c \
+		utils/assets.c \
+		utils/checkers.c \
+		utils/error.c \
+		utils/floofill.c \
+		utils/gameplay.c \
+		utils/map.c \
+		utils/movement.c
 
 OBJS    := ${SRCS:.c=.o}
 all: $(NAME)

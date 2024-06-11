@@ -66,4 +66,40 @@ char	*ft_strchr(const char *s, int c);
 void	*ft_calloc(size_t count, size_t size);
 char	*ft_itoa(int n);
 
+void	get_textures(t_game *game);
+void	get_images(t_game *game);
+void	place_ground(t_game *game);
+void	place_assets(t_game *game);
+
+char	**read_map(char *path, int rows, t_game *game);
+int		get_rows(char *path);
+char	**map_copy(char **map, int rows, int cols);
+int		extension_check(char *path, t_game *game);
+int		map_check(char **map, int cols, int rows, t_game *game);
+
+int		flood_fill(char **map);
+void	recursive_flood(char **map, int x, int y);
+
+void	key_w(t_game *game);
+void	key_a(t_game *game);
+void	key_s(t_game *game);
+void	key_d(t_game *game);
+void	my_keyhook(mlx_key_data_t keydata, void *param);
+
+void	print_error(t_game *game, char *message);
+void	free_map(char **map);
+void	free_game(t_game *game);
+
+int		check_extra(char **map, int c);
+int		check_missing(char **map, int c);
+int		check_parameters(char **map);
+int		check_size(char **map, int cols);
+int		check_walls(char **map, int rows, int cols);
+
+void	collect_item(t_game *game);
+void	exit_game(t_game *game);
+void	check_exit(t_game *game);
+void	open_exit(t_game *game);
+int		count_items(t_game *game);
+
 #endif
