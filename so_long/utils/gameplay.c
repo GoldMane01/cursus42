@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   gameplay.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dramos-n <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/12 16:34:17 by dramos-n          #+#    #+#             */
+/*   Updated: 2024/06/12 16:34:19 by dramos-n         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../so_long.h"
 
 void	collect_item(t_game *game)
@@ -10,6 +22,7 @@ void	collect_item(t_game *game)
 	game->textures->player = mlx_load_png("./assets/player.png");
 	game->images->player = mlx_texture_to_image(game->mlx,
 			game->textures->player);
+	mlx_delete_texture(game->textures->player);
 	mlx_image_to_window(game->mlx, game->images->player,
 		game->player_x * TILE, game->player_y * TILE);
 }

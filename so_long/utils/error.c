@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dramos-n <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/12 16:34:01 by dramos-n          #+#    #+#             */
+/*   Updated: 2024/06/12 16:34:03 by dramos-n         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../so_long.h"
 
 void	print_error(t_game *game, char *message)
@@ -28,6 +40,8 @@ void	free_game(t_game *game)
 		free_map(game->map);
 	if (game->images)
 		free(game->images);
+	if (game->textures)
+		free(game->textures);
 	if (game)
 		free(game);
 }

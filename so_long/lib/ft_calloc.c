@@ -23,6 +23,5 @@ void	*ft_calloc(size_t count, size_t size)
 	i = -1;
 	while (++i < (unsigned int)(count * size))
 		*ptr++ = 0;
-	//I make the pointer go i steps back to point it at the start
 	return (ptr - i);
 }

@@ -15,7 +15,7 @@ SRCS    := so_long.c \
 		utils/assets.c \
 		utils/checkers.c \
 		utils/error.c \
-		utils/floofill.c \
+		utils/floodfill.c \
 		utils/gameplay.c \
 		utils/map.c \
 		utils/movement.c

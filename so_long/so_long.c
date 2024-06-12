@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dramos-n <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/12 16:33:35 by dramos-n          #+#    #+#             */
+/*   Updated: 2024/06/12 16:33:37 by dramos-n         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 void	init_game(t_game *game, char *name, int rows)
@@ -56,8 +68,7 @@ int	main(int argc, char **argv)
 	if (argc > 2 || !argv[1])
 		return (1);
 	rows = get_rows(argv[1]);
-	game = NULL;
-	game = malloc(sizeof(t_game) * 1);
+	game = malloc(sizeof(t_game));
 	init_game(game, argv[1], rows);
 	if (!(game->map))
 		return (1);
