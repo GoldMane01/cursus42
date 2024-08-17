@@ -28,15 +28,18 @@ typedef struct s_philo
 
 typedef struct s_table
 {
-	long	nbr_philos;
-	long	time_to_die;
-	long	time_to_eat;
-	long	time_to_sleep;
-	long	nbr_limit_meals;
-	long	start_simulation;
-	bool	end_simlation;
-	t_fork	*forks;
-	t_philo	*philos;
+	long			nbr_philos;
+	long			time_to_die;
+	long			time_to_eat;
+	long			time_to_sleep;
+	long			nbr_limit_meals;
+	long			start_simulation;
+	bool			end_simlation;
+	bool			threads_ready;
+	pthread_mutex_t	table_mutex;
+	pthread_mutex_t	write_mutex;
+	t_fork			*forks;
+	t_philo			*philos;
 }				t_table;
 
 long	ft_atol(const char *str);

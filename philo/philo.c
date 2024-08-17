@@ -88,6 +88,7 @@ void	init_data(t_table *table)
 	table->philos = malloc(sizeof(t_philo) * table->nbr_philos);
 	if (table->philos == NULL)
 		error_exit("Malloc error\n");
+	mtx_switch(&table->table_mutex, 'I');
 	table->forks = malloc(sizeof(t_fork) * table->nbr_philos);
 	if (table->forks == NULL)
 		error_exit("Malloc error\n");
@@ -97,6 +98,160 @@ void	init_data(t_table *table)
 		table->forks[i].fork_id = i;
 	}
 	init_philo(table);
+}
+
+void	set_bool(pthread_mutex_t *mutex, bool *dest, bool value)
+{
+	mtx_switch(mutex, 'L');
+	*dest = value;
+	mtx_switch(mutex, 'U');
+}
+
+bool	get_bool(pthread_mutex_t *mutex, bool *value)
+{
+	bool	ret;
+
+	mtx_switch(mutex, 'L');
+	ret = *value;
+	mtx_switch(mutex, 'U');
+	return (ret);
+}
+
+void	set_long(pthread_mutex_t *mutex, long *dest, long value)
+{
+	mtx_switch(mutex, 'L');
+	*dest = value;
+	mtx_switch(mutex, 'U');
+}
+
+bool	get_long(pthread_mutex_t *mutex, long *value)
+{
+	long	ret;
+
+	mtx_switch(mutex, 'L');
+	ret = *value;
+	mtx_switch(mutex, 'U');
+	return (ret);
+}
+
+long	gettime(char t)
+{
+	struct timeval	tv;
+
+	if (gettimeofday(&tv, NULL))
+		error_exit("Error getting time");
+	if (t == 'S')
+		return (tv.tv_sec + (tv.tv_usec / 1000000));
+	else if (t == 'M')
+		return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+	else if (t == 'U')
+		return ((tv.tv_sec * 1000000) + tv.tv_usec);
+	else
+		error_exit("Error getting time");
+	return (0);
+}
+
+bool	sim_finished(t_table *table)
+{
+	return (get_bool(&table->table_mutex, &table->end_simlation));
+}
+
+void	wait_for_threads(t_table *table)
+{
+	while (!get_bool(&table->table_mutex, &table->threads_ready))
+		;
+}
+
+void	precise_usleep(long usec, t_table *table)
+{
+	long	start;
+	long	elapsed;
+	long	remaining;
+
+	start = gettime('U');
+	while (gettime('U') - start < usec)
+	{
+		if (sim_finished(table))
+			break ;
+		elapsed = gettime('U') - start;
+		remaining = usec - elapsed;
+		if (remaining > 1000)
+			usleep(usec / 2);
+		else
+		{
+			while (gettime('U') - start < usec)
+				;
+		}
+	}
+}
+
+
+void	write_mutex(char c, t_philo *philo)
+{
+	long	elapsed;
+
+	elapsed = gettime('M') - philo->table->start_simulation;
+	if (philo->full)
+		return ;
+	mtx_switch(&philo->table->write_mutex, 'L');
+	if (c == 'F' && !sim_finished(philo->table))
+		printf("%ld\t%d has taken a fork\n", elapsed, philo->id);
+	else if (c == 'E' && !sim_finished(philo->table))
+		printf("%ld\t%d is eating\n", elapsed, philo->id);
+	else if (c == 'S' && !sim_finished(philo->table))
+		printf("%ld\t%d is sleeping\n", elapsed, philo->id);
+	else if (c == 'T' && !sim_finished(philo->table))
+		printf("%ld\t%d is thinking\n", elapsed, philo->id);
+	else if (c == 'D')
+		printf("%ld\t%d died\n", elapsed, philo->id);
+	mtx_switch(&philo->table->write_mutex, 'U');
+}
+
+void	*dinner_sim(void *data)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)data;
+	wait_for_threads(philo->table);
+	while (!sim_finished(philo->table))
+	{
+		if (philo->full)
+			break ;
+		//eat(philo);
+		write_status('S', philo);
+		precise_usleep(philo->table->time_to_sleep, philo->table);
+		//thinking(philo);
+	}
+
+
+	return (NULL);
+}
+
+void	start_sim(t_table *table)
+{
+	int	i;
+
+	i = -1;
+	if (table->nbr_limit_meals == 0)
+		return ;
+	else if (table->nbr_limit_meals == 1)
+		;
+	else
+	{
+		while (++i)
+		{
+			if (pthread_create(&table->philos[i].thread_id, NULL, &dinner_sim, &table->philos[i]) != 0)
+				error_exit("Error creating thread");
+		}
+	}
+	table->start_simulation = gettime('M');
+	set_bool(&table->table_mutex, &table->threads_ready, true);
+	i = -1;
+	while(++i < table->nbr_philos)
+	{
+		if (pthread_join(table->philos[i].thread_id, NULL) != 0)
+			error_exit("Error joining thread");
+	}
 }
 
 int	main(int argc, char **argv)
@@ -111,7 +266,7 @@ int	main(int argc, char **argv)
 	{
 		get_data(&table, argv);
 		init_data(&table);
-		//start_sim(&table);
+		start_sim(&table);
 		//clean(&table);
 	}
 }
