@@ -1,5 +1,7 @@
 #include "philo.h"
 
+#include <errno.h>
+
 void	error_exit(char	*error)
 {
 	printf("%s", error);
@@ -75,6 +77,7 @@ void	init_philo(t_table *table)
 		philo->full = false;
 		philo->meal_total = 0;
 		philo->table = table;
+		mtx_switch(&philo->philo_mutex, 'I');
 		assign_forks(philo, table->forks, i);
 	}
 }
@@ -186,7 +189,7 @@ void	precise_usleep(long usec, t_table *table)
 }
 
 
-void	write_mutex(char c, t_philo *philo)
+void	write_status(char c, t_philo *philo)
 {
 	long	elapsed;
 
@@ -207,20 +210,44 @@ void	write_mutex(char c, t_philo *philo)
 	mtx_switch(&philo->table->write_mutex, 'U');
 }
 
+void	eat(t_philo *philo)
+{
+	mtx_switch(&philo->first_fork->fork, 'L');
+	write_status('F', philo);
+	mtx_switch(&philo->second_fork->fork, 'L');
+	write_status('F', philo);
+	set_long(&philo->philo_mutex, &philo->last_meal_time, gettime('M'));
+	philo->meal_total++;
+	write_status('E', philo);
+	precise_usleep(philo->table->time_to_eat, philo->table);
+	if (philo->table->nbr_limit_meals > 0
+		&& philo->meal_total == philo->table->nbr_limit_meals)
+		set_bool(&philo->philo_mutex, &philo->full, true);
+	mtx_switch(&philo->first_fork->fork, 'U');
+	mtx_switch(&philo->second_fork->fork, 'U');
+}
+
+//TODOODODODODODODD
+void	thinking(t_philo *philo)
+{
+	write_status('T', philo);
+}
+
 void	*dinner_sim(void *data)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)data;
+	printf("COÑO");
 	wait_for_threads(philo->table);
 	while (!sim_finished(philo->table))
 	{
 		if (philo->full)
 			break ;
-		//eat(philo);
+		eat(philo);
 		write_status('S', philo);
 		precise_usleep(philo->table->time_to_sleep, philo->table);
-		//thinking(philo);
+		thinking(philo);
 	}
 
 
@@ -250,7 +277,7 @@ void	start_sim(t_table *table)
 	while(++i < table->nbr_philos)
 	{
 		if (pthread_join(table->philos[i].thread_id, NULL) != 0)
-			error_exit("Error joining thread");
+			error_exit("Error joining thread"); //Error returns ESRCH, No thread with the ID found
 	}
 }
 

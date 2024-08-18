@@ -15,7 +15,6 @@ FLAGS    := -Wall -Wextra -Werror
 ################################################################################
 
 SRCS        :=      philo.c \
-                          tests.c \
                           lib/ft_atol.c \
                           
 OBJS        := $(SRCS:.c=.o)
