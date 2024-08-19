@@ -238,7 +238,6 @@ void	*dinner_sim(void *data)
 	t_philo	*philo;
 
 	philo = (t_philo *)data;
-	printf("COÑO");
 	wait_for_threads(philo->table);
 	while (!sim_finished(philo->table))
 	{
@@ -265,20 +264,20 @@ void	start_sim(t_table *table)
 		;
 	else
 	{
-		while (++i)
+		while (++i < table->nbr_philos)
 		{
-			if (pthread_create(&table->philos[i].thread_id, NULL, &dinner_sim, &table->philos[i]) != 0)
+			if (pthread_create(&table->philos[i].thread_id, NULL, dinner_sim, &table->philos[i]) != 0)
 				error_exit("Error creating thread");
 		}
 	}
 	table->start_simulation = gettime('M');
 	set_bool(&table->table_mutex, &table->threads_ready, true);
 	i = -1;
-	while(++i < table->nbr_philos)
+	/*while(++i < table->nbr_philos)
 	{
 		if (pthread_join(table->philos[i].thread_id, NULL) != 0)
 			error_exit("Error joining thread"); //Error returns ESRCH, No thread with the ID found
-	}
+	}*/
 }
 
 int	main(int argc, char **argv)
