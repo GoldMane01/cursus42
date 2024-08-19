@@ -92,6 +92,7 @@ void	init_data(t_table *table)
 	if (table->philos == NULL)
 		error_exit("Malloc error\n");
 	mtx_switch(&table->table_mutex, 'I');
+	mtx_switch(&table->write_mutex, 'I');
 	table->forks = malloc(sizeof(t_fork) * table->nbr_philos);
 	if (table->forks == NULL)
 		error_exit("Malloc error\n");
@@ -273,11 +274,11 @@ void	start_sim(t_table *table)
 	table->start_simulation = gettime('M');
 	set_bool(&table->table_mutex, &table->threads_ready, true);
 	i = -1;
-	/*while(++i < table->nbr_philos)
+	while(++i < table->nbr_philos)
 	{
 		if (pthread_join(table->philos[i].thread_id, NULL) != 0)
-			error_exit("Error joining thread"); //Error returns ESRCH, No thread with the ID found
-	}*/
+			error_exit("Error joining thread");
+	}
 }
 
 int	main(int argc, char **argv)
