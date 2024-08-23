@@ -35,10 +35,12 @@ typedef struct s_table
 	long			time_to_sleep;
 	long			nbr_limit_meals;
 	long			start_simulation;
+	long			nbr_threads_running;
 	bool			end_simlation;
 	bool			threads_ready;
 	pthread_mutex_t	table_mutex;
 	pthread_mutex_t	write_mutex;
+	pthread_t		death;
 	t_fork			*forks;
 	t_philo			*philos;
 }				t_table;
