@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   time.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dramos-n <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/10 16:36:50 by dramos-n          #+#    #+#             */
+/*   Updated: 2024/09/10 16:36:51 by dramos-n         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../philo.h"
 
 long	gettime(char t)
@@ -16,8 +28,6 @@ long	gettime(char t)
 		error_exit("Error getting time");
 	return (0);
 }
-
-
 
 void	precise_usleep(long usec, t_table *table)
 {

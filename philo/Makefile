@@ -22,6 +22,7 @@ SRCS        :=      philo.c \
 						  utils/status.c \
 						  utils/threads.c \
 						  utils/time.c \
+						  utils/philos.c \
                           
 OBJS        := $(SRCS:.c=.o)
 

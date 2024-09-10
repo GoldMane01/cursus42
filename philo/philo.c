@@ -18,8 +18,6 @@ void	error_exit(char	*error)
 	exit(EXIT_FAILURE);
 }
 
-
-
 void	start_sim(t_table *table)
 {
 	int	i;
@@ -28,18 +26,9 @@ void	start_sim(t_table *table)
 	if (table->nbr_limit_meals == 0)
 		return ;
 	else if (table->nbr_philos == 1)
-	{
-		if (pthread_create(&table->philos[0].thread_id, NULL, one_philo, &table->philos[0]) != 0)
-			error_exit("Error creating thread");
-	}
+		start_one_philo(table);
 	else
-	{
-		while (++i < table->nbr_philos)
-		{
-			if (pthread_create(&table->philos[i].thread_id, NULL, dinner_sim, &table->philos[i]) != 0)
-				error_exit("Error creating thread");
-		}
-	}
+		start_all_philos(table);
 	if (pthread_create(&table->death, NULL, check_death, table) != 0)
 		error_exit("Error creating thread");
 	table->start_simulation = gettime('M');
