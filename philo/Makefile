@@ -16,6 +16,12 @@ FLAGS    := -Wall -Wextra -Werror
 
 SRCS        :=      philo.c \
                           lib/ft_atol.c \
+						  utils/data.c \
+						  utils/mtx.c \
+						  utils/setgetter.c \
+						  utils/status.c \
+						  utils/threads.c \
+						  utils/time.c \
                           
 OBJS        := $(SRCS:.c=.o)
 
