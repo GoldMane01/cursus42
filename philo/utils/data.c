@@ -12,16 +12,17 @@
 
 #include "../philo.h"
 
-void	check_data(t_table *table)
+int	check_data(t_table *table)
 {
 	if (table->nbr_philos <= 0
 		|| table->time_to_die <= 0
 		|| table->time_to_eat <= 0
 		|| table->time_to_sleep <= 0)
-		error_exit("Invalid values\n");
+		return (error_exit("Invalid values\n"));
+	return (1);
 }
 
-void	get_data(t_table *table, char **argv)
+int	get_data(t_table *table, char **argv)
 {
 	table->nbr_philos = ft_atol(argv[1]);
 	table->time_to_die = ft_atol(argv[2]) * 1000;
@@ -31,10 +32,12 @@ void	get_data(t_table *table, char **argv)
 		table->nbr_limit_meals = ft_atol(argv[5]);
 	else
 		table->nbr_limit_meals = -1;
-	check_data(table);
+	if (!check_data(table))
+		return (0);
+	return (1);
 }
 
-void	init_philo(t_table *table)
+int	init_philo(t_table *table)
 {
 	int		i;
 	t_philo	*philo;
@@ -47,12 +50,14 @@ void	init_philo(t_table *table)
 		philo->full = false;
 		philo->meal_total = 0;
 		philo->table = table;
-		mtx_switch(&philo->philo_mutex, 'I');
+		if (!mtx_switch(&philo->philo_mutex, 'I'))
+			return (0);
 		assign_forks(philo, table->forks, i);
 	}
+	return (1);
 }
 
-void	init_data(t_table *table)
+int	init_data(t_table *table)
 {
 	int	i;
 
@@ -61,18 +66,23 @@ void	init_data(t_table *table)
 	table->nbr_threads_running = 0;
 	table->philos = malloc(sizeof(t_philo) * table->nbr_philos);
 	if (table->philos == NULL)
-		error_exit("Malloc error\n");
-	mtx_switch(&table->table_mutex, 'I');
-	mtx_switch(&table->write_mutex, 'I');
+		return (error_exit("Malloc error\n"));
+	if (!mtx_switch(&table->table_mutex, 'I'))
+		return (0);
+	if (!mtx_switch(&table->write_mutex, 'I'))
+		return (0);
 	table->forks = malloc(sizeof(t_fork) * table->nbr_philos);
 	if (table->forks == NULL)
-		error_exit("Malloc error\n");
+		return (error_exit("Malloc error\n"));
 	while (++i < table->nbr_philos)
 	{
-		mtx_switch(&table->forks[i].fork, 'I');
+		if (!mtx_switch(&table->forks[i].fork, 'I'))
+			return (0);
 		table->forks[i].fork_id = i;
 	}
-	init_philo(table);
+	if (!init_philo(table))
+		return (0);
+	return (1);
 }
 
 void	assign_forks(t_philo *philo, t_fork *forks, int pos)

@@ -50,10 +50,11 @@ void	eat(t_philo *philo)
 	write_status('F', philo);
 	mtx_switch(&philo->second_fork->fork, 'L');
 	write_status('F', philo);
+	write_status('E', philo);
+	set_long(&philo->philo_mutex, &philo->last_meal_time, gettime('M'));
+	precise_usleep(philo->table->time_to_eat, philo);
 	set_long(&philo->philo_mutex, &philo->last_meal_time, gettime('M'));
 	philo->meal_total++;
-	write_status('E', philo);
-	precise_usleep(philo->table->time_to_eat, philo->table);
 	if (philo->table->nbr_limit_meals > 0
 		&& philo->meal_total == philo->table->nbr_limit_meals)
 		set_bool(&philo->philo_mutex, &philo->full, true);

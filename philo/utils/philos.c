@@ -1,13 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philos.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dramos-n <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/16 16:56:01 by dramos-n          #+#    #+#             */
+/*   Updated: 2024/09/16 16:56:02 by dramos-n         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../philo.h"
 
-void	start_one_philo(t_table *table)
+int	start_one_philo(t_table *table)
 {
 	if (pthread_create(&table->philos[0].thread_id, NULL, one_philo,
 			&table->philos[0]) != 0)
-		error_exit("Error creating thread");
+		return (error_exit("Error creating thread"));
+	return (1);
 }
 
-void	start_all_philos(t_table *table)
+int	start_all_philos(t_table *table)
 {
 	int	i;
 
@@ -16,6 +29,7 @@ void	start_all_philos(t_table *table)
 	{
 		if (pthread_create(&table->philos[i].thread_id, NULL,
 				dinner_sim, &table->philos[i]) != 0)
-			error_exit("Error creating thread");
+			return (error_exit("Error creating thread"));
 	}
+	return (1);
 }

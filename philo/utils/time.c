@@ -29,25 +29,16 @@ long	gettime(char t)
 	return (0);
 }
 
-void	precise_usleep(long usec, t_table *table)
+int	precise_usleep(long usec, t_philo *philo)
 {
 	long	start;
-	long	elapsed;
-	long	remaining;
 
 	start = gettime('U');
-	while (gettime('U') - start < usec)
+	while ((gettime('U') - start) < usec)
 	{
-		if (sim_finished(table))
-			break ;
-		elapsed = gettime('U') - start;
-		remaining = usec - elapsed;
-		if (remaining > 1000)
-			usleep(usec / 2);
-		else
-		{
-			while (gettime('U') - start < usec)
-				;
-		}
+		usleep(100);
+		if (philo_death(philo))
+			return (0);
 	}
+	return (1);
 }

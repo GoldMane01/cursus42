@@ -12,33 +12,34 @@
 
 #include "philo.h"
 
-void	error_exit(char	*error)
+int	error_exit(char	*error)
 {
 	printf("%s", error);
-	exit(EXIT_FAILURE);
+	return (0);
 }
 
-void	start_sim(t_table *table)
+int	start_sim(t_table *table)
 {
 	int	i;
 
 	i = -1;
 	if (table->nbr_limit_meals == 0)
-		return ;
+		return (1);
 	else if (table->nbr_philos == 1)
 		start_one_philo(table);
 	else
 		start_all_philos(table);
 	if (pthread_create(&table->death, NULL, check_death, table) != 0)
-		error_exit("Error creating thread");
+		return (error_exit("Error creating thread"));
 	table->start_simulation = gettime('M');
 	set_bool(&table->table_mutex, &table->threads_ready, true);
 	i = -1;
 	while (++i < table->nbr_philos)
 	{
 		if (pthread_join(table->philos[i].thread_id, NULL) != 0)
-			error_exit("Error joining thread");
+			return (error_exit("Error joining thread"));
 	}
+	return (1);
 }
 
 int	main(int argc, char **argv)
@@ -46,14 +47,16 @@ int	main(int argc, char **argv)
 	t_table	table;
 
 	if (argc != 5 && argc != 6)
-	{
-		error_exit("Bad input\n");
-	}
+		return (error_exit("Bad input\n"));
 	else
 	{
-		get_data(&table, argv);
-		init_data(&table);
-		start_sim(&table);
+		if (!get_data(&table, argv))
+			return (0);
+		if (!init_data(&table))
+			return (0);
+		if (!start_sim(&table))
+			return (0);
 		//clean(&table);
 	}
+	return (1);
 }
