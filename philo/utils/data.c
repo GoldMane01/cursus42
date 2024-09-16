@@ -64,6 +64,7 @@ int	init_data(t_table *table)
 	i = -1;
 	table->end_simlation = false;
 	table->nbr_threads_running = 0;
+	table->threads_ready = false;
 	table->philos = malloc(sizeof(t_philo) * table->nbr_philos);
 	if (table->philos == NULL)
 		return (error_exit("Malloc error\n"));

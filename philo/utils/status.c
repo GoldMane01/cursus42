@@ -30,18 +30,21 @@ void	write_status(char c, t_philo *philo)
 	elapsed = gettime('M') - philo->table->start_simulation;
 	if (philo->full)
 		return ;
-	mtx_switch(&philo->table->write_mutex, 'L');
-	if (c == 'F' && !sim_finished(philo->table))
-		printf("%ld\t%d has taken a fork\n", elapsed, philo->id);
-	else if (c == 'E' && !sim_finished(philo->table))
-		printf("%ld\t%d is eating\n", elapsed, philo->id);
-	else if (c == 'S' && !sim_finished(philo->table))
-		printf("%ld\t%d is sleeping\n", elapsed, philo->id);
-	else if (c == 'T' && !sim_finished(philo->table))
-		printf("%ld\t%d is thinking\n", elapsed, philo->id);
-	else if (c == 'D')
-		printf("%ld\t%d died\n", elapsed, philo->id);
-	mtx_switch(&philo->table->write_mutex, 'U');
+	if (!philo_death(philo))
+	{
+		mtx_switch(&philo->table->write_mutex, 'L');
+		if (c == 'F' && !sim_finished(philo->table))
+			printf("%ld\t%d has taken a fork\n", elapsed, philo->id);
+		else if (c == 'E' && !sim_finished(philo->table))
+			printf("%ld\t%d is eating\n", elapsed, philo->id);
+		else if (c == 'S' && !sim_finished(philo->table))
+			printf("%ld\t%d is sleeping\n", elapsed, philo->id);
+		else if (c == 'T' && !sim_finished(philo->table))
+			printf("%ld\t%d is thinking\n", elapsed, philo->id);
+		else if (c == 'D')
+			printf("%ld\t%d died\n", elapsed, philo->id);
+		mtx_switch(&philo->table->write_mutex, 'U');
+	}
 }
 
 void	eat(t_philo *philo)

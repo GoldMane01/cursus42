@@ -42,21 +42,52 @@ int	start_sim(t_table *table)
 	return (1);
 }
 
+void	clean(t_table *table)
+{
+	int	i;
+
+	pthread_mutex_destroy(&table->table_mutex);
+	pthread_mutex_destroy(&table->write_mutex);
+	i = -1;
+	if (table->forks)
+	{
+		while (++i < table->nbr_philos)
+			pthread_mutex_destroy(&table->forks[i].fork);
+		free(table->forks);
+	}
+	i = -1;
+	if (table->philos)
+	{
+		while (++i < table->nbr_philos)
+			pthread_mutex_destroy(&table->philos[i].philo_mutex);
+		free(table->philos);
+	}
+	free(table);
+}
+
 int	main(int argc, char **argv)
 {
-	t_table	table;
+	t_table	*table;
 
 	if (argc != 5 && argc != 6)
-		return (error_exit("Bad input\n"));
+	{
+		error_exit("Bad input\n");
+		return (1);
+	}
 	else
 	{
-		if (!get_data(&table, argv))
-			return (0);
-		if (!init_data(&table))
-			return (0);
-		if (!start_sim(&table))
-			return (0);
-		//clean(&table);
+		table = malloc(sizeof(t_table));
+		if (!table)
+			return (1);
+		if (!get_data(table, argv))
+			return (1);
+		if (!init_data(table))
+			return (1);
+		if (!start_sim(table))
+			return (1);
+		free(table->forks);
+		free(table->philos);
+		free(table);
 	}
-	return (1);
+	return (0);
 }
