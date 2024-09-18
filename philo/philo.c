@@ -42,29 +42,6 @@ int	start_sim(t_table *table)
 	return (1);
 }
 
-void	clean(t_table *table)
-{
-	int	i;
-
-	pthread_mutex_destroy(&table->table_mutex);
-	pthread_mutex_destroy(&table->write_mutex);
-	i = -1;
-	if (table->forks)
-	{
-		while (++i < table->nbr_philos)
-			pthread_mutex_destroy(&table->forks[i].fork);
-		free(table->forks);
-	}
-	i = -1;
-	if (table->philos)
-	{
-		while (++i < table->nbr_philos)
-			pthread_mutex_destroy(&table->philos[i].philo_mutex);
-		free(table->philos);
-	}
-	free(table);
-}
-
 int	main(int argc, char **argv)
 {
 	t_table	*table;
@@ -85,6 +62,8 @@ int	main(int argc, char **argv)
 			return (1);
 		if (!start_sim(table))
 			return (1);
+		set_bool(&table->table_mutex, &table->end_simulation, true);
+		pthread_detach(table->death);
 		free(table->forks);
 		free(table->philos);
 		free(table);

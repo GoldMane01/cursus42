@@ -55,7 +55,7 @@ void	*check_death(void *data)
 		{
 			if (philo_death(table->philos + i))
 			{
-				set_bool(&table->table_mutex, &table->end_simlation, true);
+				set_bool(&table->table_mutex, &table->end_simulation, true);
 				write_status('D', table->philos + i);
 			}
 		}

@@ -49,7 +49,7 @@ typedef struct s_table
 	long			nbr_limit_meals;
 	long			start_simulation;
 	long			nbr_threads_running;
-	bool			end_simlation;
+	bool			end_simulation;
 	bool			threads_ready;
 	pthread_mutex_t	table_mutex;
 	pthread_mutex_t	write_mutex;

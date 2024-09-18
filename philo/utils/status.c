@@ -14,7 +14,7 @@
 
 bool	sim_finished(t_table *table)
 {
-	return (get_bool(&table->table_mutex, &table->end_simlation));
+	return (get_bool(&table->table_mutex, &table->end_simulation));
 }
 
 void	wait_for_threads(t_table *table)
