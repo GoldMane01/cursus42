@@ -48,11 +48,16 @@ void	eat(t_philo *philo)
 {
 	mtx_switch(&philo->first_fork->fork, 'L');
 	write_status('F', philo);
-	mtx_switch(&philo->second_fork->fork, 'L');
+	if (mtx_switch(&philo->second_fork->fork, 'L') == 0)
+		mtx_switch(&philo->first_fork->fork, 'U');
 	write_status('F', philo);
 	write_status('E', philo);
-	precise_usleep(philo->table->time_to_eat, philo);
 	set_long(&philo->philo_mutex, &philo->last_meal_time, gettime('M'));
+	if (precise_usleep(philo->table->time_to_eat, philo) == 0)
+	{
+		mtx_switch(&philo->first_fork->fork, 'U');
+		mtx_switch(&philo->second_fork->fork, 'U');
+	}
 	philo->meal_total++;
 	if (philo->table->nbr_limit_meals > 0
 		&& philo->meal_total == philo->table->nbr_limit_meals)
@@ -64,4 +69,8 @@ void	eat(t_philo *philo)
 void	thinking(t_philo *philo)
 {
 	write_status('T', philo);
+	if (philo->table->nbr_philos % 2 != 0)
+	{
+		precise_usleep(philo->table->time_to_eat, philo);
+	}
 }

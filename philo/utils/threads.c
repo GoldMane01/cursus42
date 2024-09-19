@@ -94,7 +94,7 @@ void	*dinner_sim(void *data)
 		eat(philo);
 		write_status('S', philo);
 		precise_usleep(philo->table->time_to_sleep, philo);
-		write_status('T', philo);
+		thinking(philo);
 	}
 	return (NULL);
 }
